@@ -1,0 +1,106 @@
+:local {
+  .content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .header {
+    font-size: 36px;
+    margin-bottom: 15px;
+  }
+
+  .paper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    padding-top: 0;
+    width: 700px;
+    margin-bottom: 20px;
+  }
+
+  .plan-title {
+    padding-top: 15px;
+    margin-bottom: 20px;
+  }
+
+  .main-card {
+    width: 150px;
+    height: 90px;
+    text-align: center;
+    padding: 11px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-flow: column;
+    margin-right: 15px;
+
+    .card-title {
+      margin-bottom: 5px;
+      font-size: 18px;
+      color: grey;
+      font-weight: 500;
+    }
+
+    .card-value {
+      font-size: 32px;
+      margin-top: 10px;
+    }
+  }
+
+  .controls {
+    display: flex;
+    margin-bottom: 10px;
+    margin-left: -60px;
+  }
+
+  .control {
+    display: inline-block;
+    margin-right: 20px;
+  }
+
+  .amount {
+    width: 35px;
+  }
+
+  .cards-title {
+    margin-bottom: 10px;
+  }
+
+  .cards {
+    display: flex;
+    flex-flow: row;
+  }
+
+  .card {
+    width: 115px;
+    height: 70px;
+    text-align: center;
+    padding: 5px;
+    margin-bottom: 10 px;
+    display: flex;
+    flex-flow: column;
+    margin-right: 15px;
+
+    .card-title {
+      font-size: 15px;
+      color: grey;
+      font-weight: 500;
+    }
+
+    .card-value {
+      font-size: 24px;
+      margin-top: 8px;
+    }
+  }
+
+  .main-text {
+    margin-right: 4px;
+  }
+
+  .min-text {
+    color: gray;
+    font-size: 10px;
+  }
+}
