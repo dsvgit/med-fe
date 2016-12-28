@@ -1,8 +1,12 @@
 .base-layout-content {
   background-color: #f1f1f1;
-  margin-left: 320px;
+  margin-left: 256px;
   margin-top: 56px;
   padding: 20px;
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+  }
 }
 
 .base-layout-paper {
@@ -10,4 +14,5 @@
   min-height: calc(100vh - 98px);
   padding: 20px;
   max-width: 920px;
+  overflow-x: hidden;
 }

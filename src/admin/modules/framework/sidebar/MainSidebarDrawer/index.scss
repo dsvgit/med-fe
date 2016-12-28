@@ -1,0 +1,15 @@
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: #0d3349;
+  opacity: 0.5;
+  z-index: 1000;
+  display: none;
+
+  &.open {
+    display: block;
+  }
+}

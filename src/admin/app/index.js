@@ -6,6 +6,7 @@ import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import _ from 'lodash';
 
 import store from 'src/admin/service/store';
 import browserHistory from 'src/admin/service/history';
@@ -14,18 +15,38 @@ import DashboardOverview from 'src/admin/modules/dashboard/components/dashboardO
 import UsersOverview from 'src/admin/modules/users/components/usersOverview';
 import FoodOverview from 'src/admin/modules/food/components/foodOverview';
 
+import { setAppTitle } from 'src/admin/modules/app/actions/appActions';
+
 import 'src/common/styles/index.scss';
 
 injectTapEventPlugin();
 
+let sidebarItems = _.map([
+  DashboardOverview,
+  UsersOverview,
+  FoodOverview
+], 'sidebarItem');
+
 ReactDOM.render(
   <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
     <Provider store={store}>
-      <BaseLayout>
+      <BaseLayout sidebarItems={sidebarItems}>
         <Router history={browserHistory}>
-          <Route path="/" component={DashboardOverview}></Route>
-          <Route path="/users" component={UsersOverview}></Route>
-          <Route path="/food" component={FoodOverview}></Route>
+          <Route  path="/"
+                  component={DashboardOverview}
+                  onEnter={() => {
+                    store.dispatch(setAppTitle(DashboardOverview.sidebarItem.title));
+                  }} />
+          <Route  path="/users"
+                  component={UsersOverview}
+                  onEnter={() => {
+                    store.dispatch(setAppTitle(UsersOverview.sidebarItem.title));
+                  }} />
+          <Route  path="/food"
+                  component={FoodOverview}
+                  onEnter={() => {
+                    store.dispatch(setAppTitle(FoodOverview.sidebarItem.title));
+                  }} />
         </Router>
       </BaseLayout>
     </Provider>

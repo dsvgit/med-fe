@@ -3,37 +3,30 @@ import React, {
 } from 'react';
 import {List, ListItem} from 'material-ui/List';
 import Divider from 'material-ui/Divider';
-import ActionHome from 'material-ui/svg-icons/action/home';
-import ActionSupervisorAccount from 'material-ui/svg-icons/action/supervisor-account';
-import MapsRestrount from 'material-ui/svg-icons/maps/restaurant';
-import history from 'src/admin/service/history';
 
 import './index.scss';
 
+
 const MainSidebar = (props) => {
-  let handleClick = url => {
-    history.replace(url);
-  }
+  let { items, handleListItemClick } = props;
+
+  let itemsComponent = items.map(item => (
+    <ListItem
+      key={item.id}
+      primaryText={item.title}
+      leftIcon={item.icon}
+      onClick={handleListItemClick.bind(null, {url: item.url, title: item.title})}
+    />
+  ));
 
   return (
     <div className="sidebar">
       <List>
-        <ListItem
-          primaryText="Главная"
-          leftIcon={<ActionHome />}
-          onClick={handleClick.bind(null, '/')} />
-        <ListItem
-          primaryText="Пользователи"
-          leftIcon={<ActionSupervisorAccount />}
-          onClick={handleClick.bind(null, '/users')} />
-        <ListItem
-          primaryText="Продукты"
-          leftIcon={<MapsRestrount />}
-          onClick={handleClick.bind(null, '/food')}/>
+        {itemsComponent}
       </List>
       <Divider inset={true} />
       <List>
-        <ListItem primaryText="Выход" leftIcon={<MapsRestrount style={{opacity: 0}} />} />
+        <ListItem primaryText="Выход" leftIcon={<i style={{opacity: 0}} />} />
       </List>
     </div>
   );

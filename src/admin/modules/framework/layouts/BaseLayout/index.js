@@ -1,20 +1,22 @@
 import React, {
   PropTypes,
 } from 'react';
-
-import MainSidebar from 'src/admin/modules/framework/sidebar/MainSidebar';
-import MainHeader from 'src/admin/modules/framework/header/MainHeader';
 import Paper from 'material-ui/Paper';
+
+import Header from 'src/admin/modules/header/components/Header';
+import AppSidebar from 'src/admin/modules/sidebar/components/AppSidebar';
+import AppSidebarDrawer from 'src/admin/modules/sidebar/components/AppSidebarDrawer';
 
 import './index.scss';
 
 const BaseLayout = (props) => {
-  let { children } = props;
+  let { children, sidebarItems } = props;
 
   return (
     <div>
-      <MainSidebar />
-      <MainHeader />
+      <AppSidebar items={sidebarItems} />
+      <AppSidebarDrawer items={sidebarItems} />
+      <Header />
       <div className="base-layout-content">
         <Paper className="base-layout-paper" zDepth={1}>
           {children}

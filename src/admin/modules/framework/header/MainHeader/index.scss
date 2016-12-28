@@ -11,3 +11,11 @@
   font-weight: 500;
   margin-left: 20px;
 }
+
+.header-open-sidebar-button {
+  display: none!important;
+
+  @media (max-width: 768px) {
+    display: inline-block!important;
+  }
+}

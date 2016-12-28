@@ -9,13 +9,17 @@ import IconButton from 'material-ui/IconButton';
 import './index.scss';
 
 const MainHeader = (props) => {
+  let { onSidebarOpen, title } = props;
+
   return (
     <Toolbar className='header'>
       <ToolbarGroup firstChild={true} className='left-toolbar-group'>
-        <IconButton iconStyle={{ color: 'white' }} style={{display: 'none'}} >
+        <IconButton iconStyle={{ color: 'white' }}
+                    onClick={onSidebarOpen}
+                    className="header-open-sidebar-button">
           <NavigationMenu />
         </IconButton>
-        <h3 className="header-title">Информация</h3>
+        <h3 className="header-title">{title}</h3>
       </ToolbarGroup>
       <ToolbarGroup firstChild={true}>
       </ToolbarGroup>

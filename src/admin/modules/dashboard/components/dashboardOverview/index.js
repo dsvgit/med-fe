@@ -1,6 +1,7 @@
 import React, {
   PropTypes,
 } from 'react';
+import ActionHome from 'material-ui/svg-icons/action/home';
 
 const DashboardOverview = (props) => {
   return (
@@ -12,5 +13,11 @@ const DashboardOverview = (props) => {
 
 DashboardOverview.propTypes = {};
 DashboardOverview.defaultProps = {};
+DashboardOverview.sidebarItem = {
+  id: 'dashboard',
+  title: 'Главная',
+  icon: <ActionHome />,
+  url: '/'
+};
 
 export default DashboardOverview;

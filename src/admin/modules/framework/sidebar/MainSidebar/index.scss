@@ -1,8 +1,12 @@
 .sidebar {
   position: fixed;
-  width: 320px;
+  width: 256px;
   left: 0;
   top: 56px;
   background-color: #f1f1f1;
   font-weight: 500;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
