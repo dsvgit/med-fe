@@ -9,46 +9,65 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import _ from 'lodash';
 
 import store from 'src/admin/service/store';
+import sidebarItems from 'src/admin/modules/sidebar/constants/sidebarItems';
 import browserHistory from 'src/admin/service/history';
-import BaseLayout from 'src/admin/modules/framework/layouts/BaseLayout'
+import BaseLayout from 'src/admin/modules/framework/layouts/BaseLayout';
+import LoginPage from 'src/admin/modules/login/components/LoginPage';
 import DashboardOverview from 'src/admin/modules/dashboard/components/dashboardOverview';
 import UsersOverview from 'src/admin/modules/users/components/usersOverview';
+import UserEditor from 'src/admin/modules/users/components/userEditor';
 import FoodOverview from 'src/admin/modules/food/components/foodOverview';
 
 import { setAppTitle } from 'src/admin/modules/app/actions/appActions';
+import { fetchUsers } from 'src/admin/modules/users/actions/usersActions';
+import { fetchUserEditor, resetUserEditor } from 'src/admin/modules/users/actions/userEditorActions';
+import { resetLogin } from 'src/admin/modules/login/actions/loginPageActions';
+import { appSidebarClose } from 'src/admin/modules/sidebar/actions/appSidebarActions';
 
 import 'src/common/styles/index.scss';
 
 injectTapEventPlugin();
 
-let sidebarItems = _.map([
-  DashboardOverview,
-  UsersOverview,
-  FoodOverview
-], 'sidebarItem');
-
 ReactDOM.render(
   <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
     <Provider store={store}>
-      <BaseLayout sidebarItems={sidebarItems}>
-        <Router history={browserHistory}>
-          <Route  path="/"
-                  component={DashboardOverview}
-                  onEnter={() => {
+      <Router history={browserHistory}>
+        <Route  path="/"
+                component={DashboardOverview}
+                onEnter={() => {
                     store.dispatch(setAppTitle(DashboardOverview.sidebarItem.title));
                   }} />
-          <Route  path="/users"
-                  component={UsersOverview}
-                  onEnter={() => {
+        <Route  path="/users"
+                component={UsersOverview}
+                onEnter={() => {
                     store.dispatch(setAppTitle(UsersOverview.sidebarItem.title));
+                    store.dispatch(fetchUsers());
                   }} />
-          <Route  path="/food"
-                  component={FoodOverview}
-                  onEnter={() => {
+        <Route  path="/user/new"
+                component={UserEditor}
+                onEnter={(nextState) => {
+                    store.dispatch(resetUserEditor());
+                    store.dispatch(setAppTitle('Создание пользователя'));
+                  }} />
+        <Route  path="/user/:id"
+                component={UserEditor}
+                onEnter={(nextState) => {
+                    store.dispatch(resetUserEditor());
+                    store.dispatch(setAppTitle('Редактирование пользователя'));
+                    store.dispatch(fetchUserEditor(nextState.params.id));
+                  }} />
+        <Route  path="/food"
+                component={FoodOverview}
+                onEnter={() => {
                     store.dispatch(setAppTitle(FoodOverview.sidebarItem.title));
                   }} />
-        </Router>
-      </BaseLayout>
+        <Route path="/login"
+               component={LoginPage}
+               onEnter={(nextState) => {
+                  store.dispatch(appSidebarClose());
+                  store.dispatch(resetLogin());
+                }}/>
+      </Router>
     </Provider>
   </MuiThemeProvider>,
   document.getElementById('wrap')

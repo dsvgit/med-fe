@@ -11,7 +11,7 @@ import './index.scss';
 
 
 const MainSidebar = (props) => {
-  let { items, open, onClose, handleListItemClick } = props;
+  let { items, open, onClose, handleListItemClick, handleLogout } = props;
 
   let itemsComponent = items.map(item => (
     <ListItem
@@ -38,7 +38,10 @@ const MainSidebar = (props) => {
         </List>
         <Divider inset={true} />
         <List>
-          <ListItem primaryText="Выход" leftIcon={<i style={{opacity: 0}} />} />
+          <ListItem
+            primaryText="Выход"
+            leftIcon={<i style={{opacity: 0}} />}
+            onClick={handleLogout} />
         </List>
       </Drawer>
       <div  className={overlayClass}

@@ -8,7 +8,7 @@ import './index.scss';
 
 
 const MainSidebar = (props) => {
-  let { items, handleListItemClick } = props;
+  let { items, handleListItemClick, handleLogout } = props;
 
   let itemsComponent = items.map(item => (
     <ListItem
@@ -26,7 +26,10 @@ const MainSidebar = (props) => {
       </List>
       <Divider inset={true} />
       <List>
-        <ListItem primaryText="Выход" leftIcon={<i style={{opacity: 0}} />} />
+        <ListItem
+          primaryText="Выход"
+          leftIcon={<i style={{opacity: 0}} />}
+          onClick={handleLogout} />
       </List>
     </div>
   );

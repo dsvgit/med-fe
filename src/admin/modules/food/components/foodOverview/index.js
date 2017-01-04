@@ -3,9 +3,13 @@ import React, {
 } from 'react';
 import MapsRestaurant from 'material-ui/svg-icons/maps/restaurant';
 
+import BaseLayout from 'src/admin/modules/framework/layouts/BaseLayout';
+
 const FoodOverview = (props) => {
   return (
-    <div>Food list</div>
+    <BaseLayout>
+      <div>Food list</div>
+    </BaseLayout>
   );
 };
 

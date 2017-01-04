@@ -11,3 +11,14 @@ body {
 h2 {
   margin-top: 5px;
 }
+
+a {
+  color: #4078c0;
+  text-decoration: none;
+  background-color: transparent;
+
+  &:active, &:hover {
+    text-decoration: underline;
+    outline: 0;
+  }
+}

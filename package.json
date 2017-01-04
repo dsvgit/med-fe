@@ -11,8 +11,10 @@
   "author": "dsvgit",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.15.3",
     "classnames": "^2.2.5",
     "extract-text-webpack-plugin": "^0.8.2",
+    "react-infinite": "^0.10.0",
     "reset-css": "^2.2.0"
   },
   "devDependencies": {

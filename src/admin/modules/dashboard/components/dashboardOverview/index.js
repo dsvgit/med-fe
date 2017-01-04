@@ -3,11 +3,15 @@ import React, {
 } from 'react';
 import ActionHome from 'material-ui/svg-icons/action/home';
 
+import BaseLayout from 'src/admin/modules/framework/layouts/BaseLayout';
+
 const DashboardOverview = (props) => {
   return (
-    <div>
-      <span>Для начала работы выбирете нужный пункт меню в сайдбаре.</span>
-    </div>
+    <BaseLayout>
+      <div>
+        <span>Для начала работы выбирете нужный пункт меню в сайдбаре.</span>
+      </div>
+    </BaseLayout>
   );
 };
 
