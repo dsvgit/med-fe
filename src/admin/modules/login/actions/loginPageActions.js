@@ -1,6 +1,6 @@
-import { tokenRequester } from 'src/admin/service/requester';
-import { getToken } from 'src/admin/service/api';
+import { oauth } from 'src/admin/service/api';
 import history from 'src/admin/service/history';
+import { setCurrentUser } from 'src/admin/modules/app/actions/appActions';
 import { TRY_LOGIN, FAILED_LOGIN, CHANGE_LOGIN, CHANGE_PASSWORD, RESET_LOGIN } from '../constants/loginPageConstants';
 
 export function changeLogin(login) {
@@ -20,15 +20,14 @@ function failedLogin() {
 }
 
 export function resetLogin() {
-  return { type: RESET_LOGIN }
+  return { type: RESET_LOGIN };
 }
 
 export function login(credentials) {
   return dispatch => {
     dispatch(tryLogin());
-    return tokenRequester.post(getToken(), `grant_type=password&username=${credentials.login}&password=${credentials.password}`)
+    return oauth.post('token/', `grant_type=password&username=${credentials.login}&password=${credentials.password}`)
     .then(response => {
-      debugger;
       sessionStorage.setItem('authToken', response.data.access_token);
       history.replace('/');
     })
@@ -39,7 +38,15 @@ export function login(credentials) {
 }
 
 export function logout() {
-  debugger;
-  sessionStorage.setItem('authToken', '');
-  history.replace('/login');
+  return dispatch => {
+    let handleLogout = response => {
+      sessionStorage.setItem('authToken', '');
+      history.replace('/login');
+      dispatch(setCurrentUser(null));
+    };
+
+    return oauth.post('revoke_token/', `token=${sessionStorage.getItem('authToken')}`)
+    .then(handleLogout)
+    .catch(handleLogout);
+  }
 }

@@ -3,12 +3,19 @@ import React, {
 } from 'react';
 import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
+import Checkbox from 'material-ui/Checkbox';
 import RaisedButton from 'material-ui/RaisedButton';
+
 import history from 'src/admin/service/history';
-
 import BaseLayout from 'src/admin/modules/framework/layouts/BaseLayout';
-
-import { changeUserName, changeUserEmail, saveUser, addUser } from '../../actions/userEditorActions'
+import {
+  changeUserName,
+  changeUserEmail,
+  changeUserPassword,
+  changeUserIsAdmin,
+  saveUser,
+  addUser
+} from '../../actions/userEditorActions'
 
 
 const UserEditor = (props) => {
@@ -16,17 +23,27 @@ const UserEditor = (props) => {
     user,
     changeUserName,
     changeUserEmail,
+    changeUserPassword,
+    changeUserIsAdmin,
     saveUser
     } = props;
 
   let {
     username = '',
-    email = ''
+    email = '',
+    password = '',
+    isAdmin = false
     } = user;
+
+  const styles = {
+    block: {
+      maxWidth: 250,
+    }
+  };
 
   return (
     <BaseLayout>
-      <div>
+      <div style={styles.block}>
         <TextField
           floatingLabelText="Имя"
           value={username}
@@ -39,6 +56,20 @@ const UserEditor = (props) => {
           value={email}
           onChange={(e, value) => changeUserEmail(value) }
           floatingLabelFixed={true}
+        />
+        <br />
+        <TextField
+          floatingLabelText="Пароль"
+          value={password}
+          type="password"
+          onChange={(e, value) => changeUserPassword(value) }
+          floatingLabelFixed={true}
+        />
+        <br />
+        <Checkbox
+          label="Аминистратор"
+          checked={isAdmin}
+          onCheck={(e, value) => changeUserIsAdmin(value) }
         />
         <br />
         <RaisedButton
@@ -67,6 +98,12 @@ let mapDispatchToProps = dispatch => {
     },
     changeUserEmail(email) {
       dispatch(changeUserEmail(email));
+    },
+    changeUserPassword(password) {
+      dispatch(changeUserPassword(password));
+    },
+    changeUserIsAdmin(isAdmin) {
+      dispatch(changeUserIsAdmin(isAdmin));
     },
     saveUser(user) {
       if (user.id) {

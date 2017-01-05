@@ -1,26 +1,51 @@
-import requester from 'src/admin/service/requester';
-import api from 'src/admin/service/api';
+import { apiV0 } from 'src/admin/service/api';
 import history from 'src/admin/service/history';
-import { FETCH_USER, UPDATE_USER, RESET_USER, ADD_USER, SAVE_USER, CHANGE_USER_NAME, CHANGE_USER_EMAIL } from '../constants/userEditorConstants';
+import {
+  FETCH_USER,
+  UPDATE_USER,
+  RESET_USER,
+  ADD_USER,
+  SAVE_USER,
+  CHANGE_USER_NAME,
+  CHANGE_USER_EMAIL,
+  CHANGE_USER_PASSWORD,
+  CHANGE_USER_IS_ADMIN
+} from '../constants/userEditorConstants';
 
 function updateUserEditor(user) {
-  console.log('action update events', user);
   return { type: UPDATE_USER, user };
 }
 
 export function changeUserName(username) {
-  console.log('action update events', username);
   return { type: CHANGE_USER_NAME, username };
 }
 
 export function changeUserEmail(email) {
-  console.log('action update events', email);
   return { type: CHANGE_USER_EMAIL, email };
 }
 
-export function addUser(user) {
+export function changeUserPassword(password) {
+  return { type: CHANGE_USER_PASSWORD, password };
+}
+
+export function changeUserIsAdmin(isAdmin) {
+  return { type: CHANGE_USER_IS_ADMIN, isAdmin };
+}
+
+export function resetUserEditor() {
+  return { type: RESET_USER };
+}
+
+export function addUser(_user) {
   return dispatch => {
-    return requester.post(api(`users/`), user)
+    let user = Object.assign({}, _user);
+    if (!user.password) {
+      delete user.password;
+    }
+    apiV0.post(`users/`, {
+      ...user,
+      is_superuser: user.isAdmin
+    })
     .then(response => {
       history.replace('/users');
     })
@@ -31,9 +56,16 @@ export function addUser(user) {
   }
 }
 
-export function saveUser(user) {
+export function saveUser(_user) {
   return dispatch => {
-    requester.patch(api(`users/${user.id}/`), user)
+    let user = Object.assign({}, _user);
+    if (!user.password) {
+      delete user.password;
+    }
+    apiV0.patch(`users/${user.id}/`, {
+      ...user,
+      is_superuser: user.isAdmin
+    })
     .then(response => {
       //dispatch(fetchUserEditor(user.id));
       history.replace('/users');
@@ -45,15 +77,19 @@ export function saveUser(user) {
   }
 }
 
-export function resetUserEditor() {
-  return { type: RESET_USER };
-}
-
 export function fetchUserEditor(id) {
   return dispatch => {
-    requester.get(api(`users/${id}`))
+    apiV0.get(`users/${id}/`)
     .then(response => {
-      dispatch(updateUserEditor(response.data));
+      let data = response.data;
+      let user = {
+        ...data,
+        username: data.username,
+        email: data.email,
+        isAdmin: data.is_superuser,
+        password: ''
+      };
+      dispatch(updateUserEditor(user));
     })
     .catch(() => {
       debugger;

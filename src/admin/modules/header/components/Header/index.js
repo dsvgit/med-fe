@@ -15,7 +15,8 @@ AppSidebarDrawer.defaultProps = {};
 
 let mapStateToProps = state => {
   return {
-    title: state.app.title
+    title: state.app.title,
+    currentUser: state.app.currentUser
   };
 }
 

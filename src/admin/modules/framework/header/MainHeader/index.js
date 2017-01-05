@@ -9,7 +9,7 @@ import IconButton from 'material-ui/IconButton';
 import './index.scss';
 
 const MainHeader = (props) => {
-  let { onSidebarOpen, title } = props;
+  let { onSidebarOpen, title, currentUser } = props;
 
   return (
     <Toolbar className='header'>
@@ -22,6 +22,7 @@ const MainHeader = (props) => {
         <h3 className="header-title">{title}</h3>
       </ToolbarGroup>
       <ToolbarGroup firstChild={true}>
+        <h3 className="header-title">{currentUser && currentUser.username}</h3>
       </ToolbarGroup>
     </Toolbar>
   );

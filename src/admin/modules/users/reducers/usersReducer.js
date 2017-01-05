@@ -1,12 +1,29 @@
-import { UPDATE_USERS, FETCH_USERS } from '../constants/usersConstants'
+import {
+  UPDATE_USERS,
+  FETCH_USERS,
+  USERS_SELECT
+} from '../constants/usersConstants';
+
 
 export default function (state, action) {
   if (typeof state === 'undefined') {
-    state = [];
+    state = {
+      data: [],
+      selected: []
+    };
   }
 
   if (action.type === UPDATE_USERS) {
-    return action.users;
+    return {
+      ...state,
+      data: action.users
+    };
+  }
+  else if (action.type === USERS_SELECT) {
+    return {
+      ...state,
+      selected: action.selected
+    };
   }
   else {
     return state;
