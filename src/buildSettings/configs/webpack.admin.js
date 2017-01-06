@@ -10,7 +10,8 @@ var relPath = require('../utils/relPath');
 module.exports = {
   resolve: {
     alias: {
-      'src': relPath('', 'home')
+      'src': relPath('', 'home'),
+      'appSettings': relPath('/config.js', 'build')
     }
   },
   entry: {

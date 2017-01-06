@@ -2,12 +2,13 @@ import Axios from 'axios';
 
 import store from 'src/admin/service/store';
 import { logout } from 'src/admin/modules/login/actions/loginPageActions';
+import appSettings from 'appSettings';
 
 
 // const
 
-const clientId = 'OeoUPAD0zcIHNcNJ9qSPVHsUT7xdVW2JdXZNVQbp';
-const clientSecret = 'BErxBCjmqeMF5OpsjBlZ52GGkcI7h2duFBTGqQOR370ooeMN1cGR4HR17NEI54M0VIMTwYg2Gw8nvTyEk9OtFdxdPNjvk5gTgYmOAGAXLkFyGyVirWIG5Y4iS25VS2PD';
+const clientId = appSettings.ClientId;
+const clientSecret = appSettings.ClientSecret;
 
 
 // instances

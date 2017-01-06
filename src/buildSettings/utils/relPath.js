@@ -4,13 +4,12 @@ var path = require('path');
 
 var homeDir = process.cwd();
 
-var DIR_ADMIN = '/src/admin',
-    DIR_CLIENT = '/src/client';
-
 var paths = {
   'home': '/src',
-  'admin': DIR_ADMIN,
-  'client': DIR_CLIENT
+  'admin': '/src/admin',
+  'client': '/src/client',
+  'buildSettings': '/src/buildSettings',
+  'build': '/build'
 };
 
 // by default return path to UI project

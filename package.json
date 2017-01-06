@@ -5,8 +5,9 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "admin": "webpack --config ./src/buildSettings/configs/webpack.admin.js --progress",
-    "admin-server": "webpack-dev-server --config ./src/buildSettings/configs/webpack.admin.js --history-api-fallback --inline --progress --display-modules --colors --hot"
+    "init-settings": "node ./src/buildSettings/settings/run.js",
+    "admin": "npm run init-settings -- --type dev && webpack --config ./src/buildSettings/configs/webpack.admin.js --progress",
+    "admin-server": "npm run init-settings -- --type dev && webpack-dev-server --config ./src/buildSettings/configs/webpack.admin.js --history-api-fallback --inline --progress --display-modules --colors --hot"
   },
   "author": "dsvgit",
   "license": "ISC",
@@ -46,6 +47,7 @@
     "material-ui": "^0.16.5",
     "node-sass": "^3.11.1",
     "normalize.css": "^3.0.3",
+    "optimist": "^0.6.1",
     "postcss-autoreset": "^1.2.1",
     "postcss-initial": "^1.5.2",
     "postcss-loader": "^1.1.0",
