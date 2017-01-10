@@ -1,0 +1,25 @@
+.header {
+  background-color: #42A5F5!important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.header-title {
+  color: white;
+  font-weight: 500;
+  margin-left: 20px;
+}
+
+.header-open-sidebar-button {
+  display: none!important;
+}
+
+.header {
+  .header-open-sidebar-button {
+    @media (max-width: 768px) {
+      display: inline-block!important;
+    }
+  }
+}

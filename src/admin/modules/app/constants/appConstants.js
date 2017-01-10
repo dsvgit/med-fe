@@ -1,2 +1,0 @@
-export const SET_APP_TITLE = 'SET_APP_TITLE';
-export const SET_CURRENT_USER = 'SET_CURRENT_USER';

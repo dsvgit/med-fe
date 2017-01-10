@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "init-settings": "node ./src/buildSettings/settings/run.js",
-    "admin": "npm run init-settings -- --type dev && webpack --config ./src/buildSettings/configs/webpack.admin.js --progress",
-    "admin-server": "npm run init-settings -- --type dev && webpack-dev-server --config ./src/buildSettings/configs/webpack.admin.js --history-api-fallback --inline --progress --display-modules --colors --hot"
+    "full": "npm run init-settings -- --type dev && webpack --config ./src/buildSettings/configs/webpack.full.js --progress",
+    "full-server": "npm run init-settings -- --type dev && webpack-dev-server --config ./src/buildSettings/configs/webpack.full.js --progress"
   },
   "author": "dsvgit",
   "license": "ISC",
@@ -15,6 +15,7 @@
     "axios": "^0.15.3",
     "classnames": "^2.2.5",
     "extract-text-webpack-plugin": "^0.8.2",
+    "jquery-param": "^0.2.0",
     "react-infinite": "^0.10.0",
     "reset-css": "^2.2.0"
   },
@@ -70,6 +71,7 @@
     "serve-static": "^1.10.0",
     "style-loader": "^0.13.0",
     "sugar-xhr": "^1.0.4",
-    "webpack": "^1.13.3"
+    "webpack": "^1.13.3",
+    "webpack-dev-server": "^1.16.2"
   }
 }
