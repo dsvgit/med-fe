@@ -42,28 +42,30 @@ function fetchUserFailed(response) {
   return { type: USERS_EDITOR_FETCH_USER_FAILED };
 }
 
-export function saveUser(_user) {
+export function saveUser(user) {
   return dispatch => {
     dispatch({ type: USERS_EDITOR_SAVE_USER });
 
-    let user = Object.assign({}, _user);
-    if (!user.password) {
-      delete user.password;
-    }
-
     let params = {
-      ...user,
+      username: user.username,
+      email: user.email,
       is_superuser: user.isAdmin
     };
+    let { id, password } = user;
+    if (id) params.id = id;
+    if (password) params.password = password;
 
-    let postPromise = apiV0.post(`users/`, params);
-    let patchPromise = apiV0.patch(`users/${user.id}/`, params);
-
-    let savePromise = user.id ? patchPromise : postPromise;
+    let savePromise;
+    if (!user.id) {
+      savePromise = apiV0.post(`users/`, params);
+    } else {
+      savePromise = apiV0.patch(`users/${user.id}/`, params);
+    }
 
     savePromise
     .then(response => {
       dispatch(saveUserSucceed(response));
+      history.replace('/users')
     })
     .catch(response => {
       dispatch(saveUserFailed(response));

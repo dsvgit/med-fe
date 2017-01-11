@@ -32,7 +32,7 @@ function fetchUsersFailed(response) {
 
 export function deleteUsers(ids) {
   return (dispatch, getState) => {
-    let selected = getState().users.selected;
+    let selected = getState().users.list.selected;
     let current = selected[0];
     if (!current) return;
 

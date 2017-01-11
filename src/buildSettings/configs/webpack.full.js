@@ -17,7 +17,9 @@ module.exports = {
   },
   entry: {
     'admin/login': './src/login/app/index.js',
-    'admin': './src/admin/app/index.js'
+    'admin': './src/admin/app/index.js',
+    'client/login': './src/login/app/index.js',
+    'client': './src/client/app/index.js'
   },
   output: {
     path: './build',
@@ -29,13 +31,25 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'admin/login/index.html',
       chunks: ['admin/login'],
-      template: './src/login/app/index.ejs',
+      template: './src/admin/app/login.ejs',
       inject: true
     }),
     new HtmlWebpackPlugin({
       filename: 'admin/index.html',
       chunks: ['admin'],
       template: './src/admin/app/index.ejs',
+      inject: true
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'client/login/index.html',
+      chunks: ['client/login'],
+      template: './src/client/app/login.ejs',
+      inject: true
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'client/index.html',
+      chunks: ['client'],
+      template: './src/client/app/index.ejs',
       inject: true
     }),
     new webpack.NoErrorsPlugin()
@@ -84,8 +98,12 @@ module.exports = {
         loader: 'html?attrs[]=img:src'
       },
       {
-        test: /\.(png|jpg|jpeg|gif)$/i,
+        test: /\.(jpg|jpeg|gif)$/i,
         loader: 'file?name=/assets/[sha512:hash:base64:7].[ext]'
+      },
+      {
+        test: /\.(png)$/i,
+        loader: 'file?name=/assets/[name].[ext]'
       },
       {
         test: /\.(ttf|eot|svg|otf)(\?.+)?$/i,

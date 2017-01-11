@@ -12,17 +12,25 @@ import {
   usersSelect,
   reset
 } from 'src/admin/actions/users/list';
+import { setTitle } from 'src/admin/actions/app';
 import UsersOverview from 'src/admin/components/users/UsersOverview';
 
 class UsersOverviewContainer extends C {
   componentDidMount() {
     let {
+      setTitle,
       reset,
       fetchUsers
       } = this.props;
 
     reset();
+    setTitle('Пользователи');
     fetchUsers();
+  }
+
+  componentWillUnmount() {
+    let { setTitle } = this.props;
+    setTitle();
   }
 
   render() {
@@ -53,6 +61,9 @@ let mapDispatchToProps = dispatch => {
     },
     handleDelete(ids) {
       dispatch(deleteUsers(ids));
+    },
+    setTitle(title) {
+      dispatch(setTitle(title));
     }
   };
 }

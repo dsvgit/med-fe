@@ -12,6 +12,7 @@ import {
 export default function (state, action) {
   let defaultState = {
     user: {
+      id: '',
       username: '',
       email: '',
       password: '',
@@ -35,6 +36,7 @@ export default function (state, action) {
     case USERS_EDITOR_FETCH_USER_SUCCEED:
       let {
         user: {
+          id,
           username,
           email,
           password,
@@ -44,6 +46,7 @@ export default function (state, action) {
       return {
         ...state,
         user: {
+          id,
           username,
           email,
           password,
@@ -62,7 +65,10 @@ export default function (state, action) {
       let { name, value } = action;
       return {
         ...state,
-        [name]: value
+        user: {
+          ...state.user,
+          [name]: value
+        }
       };
     case USERS_EDITOR_SAVE_USER:
       return state;

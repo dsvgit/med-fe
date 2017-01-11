@@ -39,7 +39,7 @@ export function login({ login, password }) {
 function loginSucceed(response) {
   let { data : { access_token } } = response;
   sessionStorage.setItem('authToken', access_token);
-  go.to.admin();
+  go.to.app();
   return { type: LOGIN_LOG_IN_SUCCEED };
 }
 

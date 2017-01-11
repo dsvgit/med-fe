@@ -2,6 +2,7 @@ import React, {
   Component as C
 } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 
 import {
   fetchUser,
@@ -9,6 +10,7 @@ import {
   changeField,
   reset
 } from 'src/admin/actions/users/editor';
+import { setTitle } from 'src/admin/actions/app';
 import UsersEditor from 'src/admin/components/users/UsersEditor';
 
 
@@ -16,11 +18,25 @@ class UsersEditorContainer extends C {
   componentDidMount() {
     let {
       reset,
-      fetch
+      fetch,
+      setTitle,
+      params: {
+        userId
+        }
       } = this.props;
 
     reset();
-    fetch();
+    if (userId) {
+      fetch(userId)
+      setTitle('Редактирование пользователя');
+    } else {
+      setTitle('Добавление пользователя');
+    }
+  }
+
+  componentWillUnmount() {
+    let { setTitle } = this.props;
+    setTitle();
   }
 
   render() {
@@ -37,16 +53,19 @@ let mapDispatchToProps = dispatch => {
     changeField(payload) {
       dispatch(changeField(payload));
     },
-    fetch(user) {
-      dispatch(fetchUser(user));
+    fetch(id) {
+      dispatch(fetchUser(id));
     },
     reset(user) {
       dispatch(reset(user));
     },
     save(user) {
       dispatch(saveUser(user));
+    },
+    setTitle(title) {
+      dispatch(setTitle(title));
     }
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersEditorContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(UsersEditorContainer));

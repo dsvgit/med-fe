@@ -8,7 +8,9 @@ import BaseLayout from 'src/admin/containers/layouts/BaseLayout';
 
 export default props => {
   let {
+    user,
     user: {
+      id,
       username,
       email,
       password,
