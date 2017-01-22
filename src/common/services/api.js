@@ -7,6 +7,7 @@ import appSettings from 'appSettings';
 
 
 let logout = window.subApplication == 'admin' ? adminLogout : clientLogout;
+let authPrefix = window.subApplication == 'admin' ? 'admin' : 'client';
 
 // const
 
@@ -17,7 +18,7 @@ const clientSecret = appSettings.ClientSecret;
 // instances
 
 const apiV0 = Axios.create({
-  baseURL: 'http://localhost:8000/api/v0/',
+  baseURL: 'http://localhost:8080/api/v0/',
   headers: {
     'Accept': '*/*',
     'Content-Type': 'application/json'
@@ -27,13 +28,15 @@ const apiV0 = Axios.create({
 apiV0.interceptors.request.use(config => {
   config.headers = Object.assign({
     ...config.headers,
-    'Authorization': 'Bearer ' + sessionStorage.getItem('authToken')
+    'x-access-token': sessionStorage.getItem('authToken')
   });
 
   return config;
 });
 
 apiV0.interceptors.response.use(null, error => {
+  if (!error.response) return;
+
   if (error.response.status === 401 || error.response.status === 403) {
     store.dispatch(logout());
     return Promise.reject(error);
@@ -43,14 +46,10 @@ apiV0.interceptors.response.use(null, error => {
 
 
 const oauth = Axios.create({
-  baseURL: 'http://localhost:8000/o/',
+  baseURL: `http://localhost:8080/api/v0/${authPrefix}/authenticate`,
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/x-www-form-urlencoded'
-  },
-  auth: {
-    username: clientId,
-    password: clientSecret
   }
 });
 

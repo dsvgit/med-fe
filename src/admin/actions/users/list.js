@@ -36,7 +36,7 @@ export function deleteUsers(ids) {
     let current = selected[0];
     if (!current) return;
 
-    apiV0.delete(`users/${current}/`)
+    apiV0.delete(`user/${current}/`)
     .then(response => {
       dispatch(fetchUsers());
     })

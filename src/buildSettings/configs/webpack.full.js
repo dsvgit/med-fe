@@ -124,6 +124,7 @@ module.exports = {
     initial
   ],
   devServer: {
+    inline: true,
     contentBase: './build',
     port: 8081,
     stats: {

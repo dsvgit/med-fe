@@ -16,12 +16,13 @@ export function fetchUser(id) {
   return dispatch => {
     dispatch({ type: USERS_EDITOR_FETCH_USER });
 
-    apiV0.get(`users/${id}/`)
+    apiV0.get(`user/${id}/`)
     .then(response => {
       dispatch(fetchUserSucceed(response));
     })
     .catch(response => {
       dispatch(fetchUserFailed(response));
+      history.replace('/users');
     });
   }
 }
@@ -30,9 +31,6 @@ function fetchUserSucceed(response) {
   let data = response.data;
   let user = {
     ...data,
-    username: data.username,
-    email: data.email,
-    isAdmin: data.is_superuser,
     password: ''
   };
   return { type: USERS_EDITOR_FETCH_USER_SUCCEED, user };
@@ -47,9 +45,11 @@ export function saveUser(user) {
     dispatch({ type: USERS_EDITOR_SAVE_USER });
 
     let params = {
-      username: user.username,
+      login: user.login,
+      firstname: user.firstname,
+      lastname: user.lastname,
       email: user.email,
-      is_superuser: user.isAdmin
+      isAdmin: user.isAdmin
     };
     let { id, password } = user;
     if (id) params.id = id;
@@ -57,15 +57,15 @@ export function saveUser(user) {
 
     let savePromise;
     if (!user.id) {
-      savePromise = apiV0.post(`users/`, params);
+      savePromise = apiV0.post(`user/`, params);
     } else {
-      savePromise = apiV0.patch(`users/${user.id}/`, params);
+      savePromise = apiV0.patch(`user/${user.id}/`, params);
     }
 
     savePromise
     .then(response => {
       dispatch(saveUserSucceed(response));
-      history.replace('/users')
+      history.replace('/users');
     })
     .catch(response => {
       dispatch(saveUserFailed(response));

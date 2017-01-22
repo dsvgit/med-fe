@@ -20,13 +20,13 @@ export function login({ login, password }) {
     dispatch({ type: LOGIN_LOG_IN });
 
     let body = param({
-      grant_type: 'password',
-      username: login,
+      login,
       password
     });
+    debugger;
 
     let timeout = 800;
-    return oauth.post('token/', body)
+    return oauth.post('', body)
     .then(response => {
       setTimeout(() => dispatch(loginSucceed(response)), timeout);
     })
@@ -37,8 +37,8 @@ export function login({ login, password }) {
 }
 
 function loginSucceed(response) {
-  let { data : { access_token } } = response;
-  sessionStorage.setItem('authToken', access_token);
+  let { data : { token } } = response;
+  sessionStorage.setItem('authToken', token);
   go.to.app();
   return { type: LOGIN_LOG_IN_SUCCEED };
 }

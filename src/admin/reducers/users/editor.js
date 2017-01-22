@@ -13,7 +13,9 @@ export default function (state, action) {
   let defaultState = {
     user: {
       id: '',
-      username: '',
+      login: '',
+      firstname: '',
+      lastname: '',
       email: '',
       password: '',
       isAdmin: false
@@ -36,18 +38,22 @@ export default function (state, action) {
     case USERS_EDITOR_FETCH_USER_SUCCEED:
       let {
         user: {
-          id,
-          username,
+          _id : id,
+          login,
+          firstname,
+          lastname,
           email,
           password,
-          is_superuser: isAdmin
+          isAdmin
           }
         } = action;
       return {
         ...state,
         user: {
           id,
-          username,
+          login,
+          firstname,
+          lastname,
           email,
           password,
           isAdmin

@@ -11,7 +11,9 @@ export default props => {
     user,
     user: {
       id,
-      username,
+      login,
+      firstname,
+      lastname,
       email,
       password,
       isAdmin
@@ -30,9 +32,23 @@ export default props => {
     <BaseLayout>
       <div style={styles.block}>
         <TextField
+          floatingLabelText="Логин"
+          value={login}
+          onChange={(e, v) => changeField({ name: 'login', value: v })}
+          floatingLabelFixed={true}
+        />
+        <br />
+        <TextField
           floatingLabelText="Имя"
-          value={username}
-          onChange={(e, v) => changeField({ name: 'username', value: v })}
+          value={firstname}
+          onChange={(e, v) => changeField({ name: 'firstname', value: v })}
+          floatingLabelFixed={true}
+        />
+        <br />
+        <TextField
+          floatingLabelText="Фамилия"
+          value={lastname}
+          onChange={(e, v) => changeField({ name: 'lastname', value: v })}
           floatingLabelFixed={true}
         />
         <br />

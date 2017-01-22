@@ -13,6 +13,18 @@ export default props => {
     title
     } = props;
 
+  let getFullName = () => {
+    if (!currentUser) return '';
+
+    let {
+      firstname,
+      lastname
+      } = currentUser;
+
+    if (firstname == lastname) return firstname;
+    return `${firstname} ${lastname}`;
+  }
+
   return (
     <Toolbar className='header'>
       <ToolbarGroup firstChild={true} className='left-toolbar-group'>
@@ -24,7 +36,7 @@ export default props => {
         <h3 className="header-title">{title}</h3>
       </ToolbarGroup>
       <ToolbarGroup firstChild={true}>
-        <h3 className="header-title">{currentUser && currentUser.username}</h3>
+        <h3 className="header-title">{getFullName()}</h3>
       </ToolbarGroup>
     </Toolbar>
   );
