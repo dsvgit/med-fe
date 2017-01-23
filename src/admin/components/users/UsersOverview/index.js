@@ -26,6 +26,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Checkbox from 'material-ui/Checkbox';
 
 import BaseLayout from 'src/admin/containers/layouts/BaseLayout';
+import PagiFooter from 'src/common/components/table/PagiFooter';
 
 import './index.scss';
 
@@ -33,14 +34,29 @@ import './index.scss';
 export default props => {
   let {
     users,
+    total,
+    page,
+    pageSize,
     goToCreate,
     handleDelete,
-    handleSelect
+    handleSelect,
+    nextPage,
+    prevPage,
+    fetchUsers
     } = props;
 
   let showCheckboxes = true;
   let enableSelectAll = true;
   let deselectOnClickaway = false;
+
+  let onPageClick = (type, page, pageSize) => {
+    if (type == 'next') {
+      nextPage();
+    } else if (type == 'prev') {
+      prevPage();
+    }
+    fetchUsers({ page, pageSize });
+  }
 
   return (
     <BaseLayout>
@@ -101,6 +117,18 @@ export default props => {
               )
             })}
           </TableBody>
+          <TableFooter adjustForCheckbox={showCheckboxes}>
+            <TableRow>
+              <TableRowColumn colSpan="4" style={{textAlign: 'center', verticalAlign: 'middle', paddingRight: 74}}>
+                <PagiFooter
+                  page={page}
+                  total={total}
+                  pageSize={pageSize}
+                  onPageClick={onPageClick}
+                />
+              </TableRowColumn>
+            </TableRow>
+          </TableFooter>
         </Table>
       </div>
     </BaseLayout>

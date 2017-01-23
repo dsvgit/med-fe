@@ -10,7 +10,9 @@ import {
   fetchUsers,
   deleteUsers,
   usersSelect,
-  reset
+  reset,
+  prevPage,
+  nextPage
 } from 'src/admin/actions/users/list';
 import { setTitle } from 'src/admin/actions/app';
 import UsersOverview from 'src/admin/components/users/UsersOverview';
@@ -20,12 +22,14 @@ class UsersOverviewContainer extends C {
     let {
       setTitle,
       reset,
-      fetchUsers
+      fetchUsers,
+      pageSize,
+      page
       } = this.props;
 
     reset();
     setTitle('Пользователи');
-    fetchUsers();
+    fetchUsers({pageSize, page});
   }
 
   componentWillUnmount() {
@@ -39,9 +43,12 @@ class UsersOverviewContainer extends C {
 }
 
 let mapStateToProps = state => {
-  let { users } = state.users.list;
+  let { users, total, pageSize, page } = state.users.list;
   return {
-    users
+    users,
+    total,
+    pageSize,
+    page
   };
 }
 
@@ -50,8 +57,14 @@ let mapDispatchToProps = dispatch => {
     goToCreate() {
       history.replace('/user/new');
     },
-    fetchUsers() {
-      dispatch(fetchUsers());
+    nextPage() {
+      dispatch(nextPage());
+    },
+    prevPage() {
+      dispatch(prevPage());
+    },
+    fetchUsers(payload) {
+      dispatch(fetchUsers(payload));
     },
     reset() {
       dispatch(reset());

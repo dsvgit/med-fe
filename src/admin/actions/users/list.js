@@ -4,15 +4,19 @@ import {
   USERS_LIST_FETCH_USERS_SUCCEED,
   USERS_LIST_FETCH_USERS_FAILED,
   USERS_LIST_SELECT_USER,
-  USERS_LIST_RESET
+  USERS_LIST_RESET,
+  USERS_LIST_NEXT_PAGE,
+  USERS_LIST_PREV_PAGE
 } from 'src/admin/actionTypes/users/list';
 
 
-export function fetchUsers() {
+export function fetchUsers(params) {
   return dispatch => {
     dispatch({ type: USERS_LIST_FETCH_USERS });
 
-    apiV0.get(`users/`)
+    apiV0.get(`users/`, {
+      params
+    })
     .then(response => {
       dispatch(fetchUsersSucceed(response));
     })
@@ -23,7 +27,11 @@ export function fetchUsers() {
 }
 
 function fetchUsersSucceed(response) {
-  return { type: USERS_LIST_FETCH_USERS_SUCCEED, users: response.data };
+  let {
+    users,
+    total
+    } = response.data;
+  return { type: USERS_LIST_FETCH_USERS_SUCCEED, users, total };
 }
 
 function fetchUsersFailed(response) {
@@ -53,4 +61,12 @@ export function usersSelect(selected) {
 
 export function reset() {
   return { type: USERS_LIST_RESET };
+}
+
+export function nextPage() {
+  return { type: USERS_LIST_NEXT_PAGE };
+}
+
+export function prevPage() {
+  return { type: USERS_LIST_PREV_PAGE };
 }
