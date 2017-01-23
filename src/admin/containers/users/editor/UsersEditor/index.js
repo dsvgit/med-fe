@@ -11,9 +11,10 @@ import {
   reset
 } from 'src/admin/actions/users/editor';
 import { setTitle } from 'src/admin/actions/app';
-import UsersEditor from 'src/admin/components/users/UsersEditor';
+import UsersEditor from 'src/admin/components/users/editor/UsersEditor';
 
 
+@withRouter
 class UsersEditorContainer extends C {
   componentDidMount() {
     let {
@@ -50,17 +51,14 @@ let mapStateToProps = state => {
 
 let mapDispatchToProps = dispatch => {
   return {
-    changeField(payload) {
-      dispatch(changeField(payload));
-    },
     fetch(id) {
       dispatch(fetchUser(id));
     },
     reset(user) {
       dispatch(reset(user));
     },
-    save(user) {
-      dispatch(saveUser(user));
+    save(payload) {
+      dispatch(saveUser(payload));
     },
     setTitle(title) {
       dispatch(setTitle(title));
@@ -68,4 +66,4 @@ let mapDispatchToProps = dispatch => {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(UsersEditorContainer));
+export default connect(mapStateToProps, mapDispatchToProps)(UsersEditorContainer);

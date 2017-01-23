@@ -20,6 +20,12 @@ export default function (state, action) {
       password: '',
       isAdmin: false
     },
+    card: {
+      prot: 0,
+      fats: 0,
+      carb: 0,
+      calories: 0
+    },
     fetchError: false,
     fetchPending: false
   };
@@ -45,7 +51,8 @@ export default function (state, action) {
           email,
           password,
           isAdmin
-          }
+          },
+        card
         } = action;
       return {
         ...state,
@@ -58,6 +65,7 @@ export default function (state, action) {
           password,
           isAdmin
         },
+        card,
         fetchError: false,
         fetchPending: false
       };
@@ -68,11 +76,11 @@ export default function (state, action) {
         fetchPending: false
       };
     case USERS_EDITOR_CHANGE_FIELD:
-      let { name, value } = action;
+      let { name, value, context } = action;
       return {
         ...state,
-        user: {
-          ...state.user,
+        [context]: {
+          ...state[context],
           [name]: value
         }
       };

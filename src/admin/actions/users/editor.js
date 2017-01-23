@@ -30,21 +30,22 @@ export function fetchUser(id) {
 function fetchUserSucceed(response) {
   let data = response.data;
   let user = {
-    ...data,
+    ...data.user,
     password: ''
   };
-  return { type: USERS_EDITOR_FETCH_USER_SUCCEED, user };
+  let { card } = data;
+  return { type: USERS_EDITOR_FETCH_USER_SUCCEED, user, card };
 }
 
 function fetchUserFailed(response) {
   return { type: USERS_EDITOR_FETCH_USER_FAILED };
 }
 
-export function saveUser(user) {
+export function saveUser({ user, card }) {
   return dispatch => {
     dispatch({ type: USERS_EDITOR_SAVE_USER });
 
-    let params = {
+    let _user = {
       login: user.login,
       firstname: user.firstname,
       lastname: user.lastname,
@@ -52,8 +53,13 @@ export function saveUser(user) {
       isAdmin: user.isAdmin
     };
     let { id, password } = user;
-    if (id) params.id = id;
-    if (password) params.password = password;
+    if (id) _user.id = id;
+    if (password) _user.password = password;
+
+    let params = {
+      user: _user,
+      card
+    };
 
     let savePromise;
     if (!user.id) {

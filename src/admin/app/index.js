@@ -14,7 +14,7 @@ import store from 'src/admin/services/store';
 import browserHistory from 'src/admin/services/history';
 import DashboardOverview from 'src/admin/containers/dashboard/DashboardOverview';
 import UsersOverview from 'src/admin/containers/users/UsersOverview';
-import UsersEditor from 'src/admin/containers/users/UsersEditor';
+import UsersEditor from 'src/admin/containers/users/editor/UsersEditor';
 import FoodOverview from 'src/admin/containers/food/FoodOverview';
 
 import { fetchCurrentUser } from 'src/admin/actions/app';

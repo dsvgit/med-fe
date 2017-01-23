@@ -3,12 +3,9 @@ import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import BaseLayout from 'src/admin/containers/layouts/BaseLayout';
-
 
 export default props => {
   let {
-    user,
     user: {
       id,
       login,
@@ -18,8 +15,7 @@ export default props => {
       password,
       isAdmin
       },
-    changeField,
-    save
+    changeField
     } = props;
 
   const styles = {
@@ -29,7 +25,7 @@ export default props => {
   };
 
   return (
-    <BaseLayout>
+    <div>
       <div style={styles.block}>
         <TextField
           floatingLabelText="Логин"
@@ -72,13 +68,7 @@ export default props => {
           checked={isAdmin}
           onCheck={(e, v) => changeField({ name: 'isAdmin', value: v })}
         />
-        <br />
-        <RaisedButton
-          label="Сохранить"
-          primary={true}
-          onClick={() => save(user)}
-        />
       </div>
-    </BaseLayout>
+    </div>
   );
 };

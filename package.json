@@ -16,6 +16,7 @@
     "classnames": "^2.2.5",
     "extract-text-webpack-plugin": "^0.8.2",
     "jquery-param": "^0.2.0",
+    "material-ui-number-input": "^5.0.16",
     "react-infinite": "^0.10.0",
     "reset-css": "^2.2.0"
   },
