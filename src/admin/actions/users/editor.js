@@ -1,4 +1,4 @@
-import Validator from 'validatorjs';
+import Validator from 'framework-validator';
 
 import { apiV0 } from 'src/common/services/api';
 import history from 'src/admin/services/history';
@@ -17,8 +17,8 @@ import {
 
 var schema = {
   login: 'required|alpha_num',
-  firstname: 'required|alpha',
-  lastname: 'required|alpha',
+  firstname: 'required|person_name',
+  lastname: 'required|person_name',
   email: 'required|email'
 };
 
@@ -52,8 +52,10 @@ function fetchUserFailed(response) {
 }
 
 export function saveUser({ user, card }) {
-  return dispatch => {
+  return (dispatch, getState) => {
     dispatch({ type: USERS_EDITOR_SAVE_USER });
+
+    if (!validate(dispatch, getState)) return;
 
     let _user = {
       login: user.login,
@@ -100,11 +102,20 @@ function saveUserFailed(response) {
 export function changeField(payload) {
   return (dispatch, getState) => {
     dispatch({ type: USERS_EDITOR_CHANGE_FIELD, ...payload });
-    let state = _.get(getState(), 'users.editor.user');
-    let validation = new Validator(state, schema);
-    validation.passes();
-    dispatch({ type: USERS_EDITOR_VALIDATE, errors: validation.errors });
+    validate(dispatch, getState);
   }
+}
+
+function validate(dispatch, getState) {
+  let user = _.get(getState(), 'users.editor.user');
+  let _schema = Object.assign({}, schema);
+  if (!user.id) {
+    _schema.password = 'required';
+  }
+  let validation = new Validator(user, _schema);
+  let passes = validation.passes();
+  dispatch({ type: USERS_EDITOR_VALIDATE, errors: validation.errors });
+  return passes;
 }
 
 export function reset() {

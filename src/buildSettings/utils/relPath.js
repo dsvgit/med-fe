@@ -8,6 +8,7 @@ var paths = {
   'home': '/src',
   'admin': '/src/admin',
   'client': '/src/client',
+  'common': '/src/common',
   'buildSettings': '/src/buildSettings',
   'build': '/build'
 };

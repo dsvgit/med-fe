@@ -12,7 +12,8 @@ module.exports = {
   resolve: {
     alias: {
       'src': relPath('', 'home'),
-      'appSettings': relPath('/config.js', 'build')
+      'appSettings': relPath('/config.js', 'build'),
+      'framework-validator': relPath('/services/validator', 'common')
     }
   },
   entry: {

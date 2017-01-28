@@ -44,8 +44,7 @@ export default props => {
           onChange={(e, v) => changeField({ name: 'firstname', value: v })}
           floatingLabelFixed={true}
           errorText={getError('firstname')}
-        />
-        <br />
+        /><br />
         <TextField
           floatingLabelText="Фамилия"
           value={lastname}
@@ -68,11 +67,13 @@ export default props => {
           type="password"
           onChange={(e, v) => changeField({ name: 'password', value: v })}
           floatingLabelFixed={true}
+          errorText={getError('password')}
         />
         <br />
         <Checkbox
           label="Аминистратор"
           checked={isAdmin}
+          style={{marginTop: 10}}
           onCheck={(e, v) => changeField({ name: 'isAdmin', value: v })}
         />
       </div>
