@@ -7,7 +7,7 @@ import appSettings from 'appSettings';
 
 
 let logout = window.subApplication == 'admin' ? adminLogout : clientLogout;
-let authPrefix = window.subApplication == 'admin' ? 'admin' : 'client';
+let isAdmin = window.subApplication == 'admin';
 
 // const
 
@@ -45,8 +45,14 @@ apiV0.interceptors.response.use(null, error => {
 });
 
 
+let authParams = {};
+if (isAdmin) {
+  authParams.admin = true;
+}
+
 const oauth = Axios.create({
-  baseURL: `http://localhost:8080/api/v0/${authPrefix}/authenticate`,
+  baseURL: `http://localhost:8080/api/v0/authenticate`,
+  params: authParams,
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/x-www-form-urlencoded'

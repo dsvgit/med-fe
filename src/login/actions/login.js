@@ -23,7 +23,6 @@ export function login({ login, password }) {
       login,
       password
     });
-    debugger;
 
     let timeout = 800;
     return oauth.post('', body)
