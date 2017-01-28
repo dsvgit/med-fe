@@ -40,8 +40,8 @@ export default props => {
     goToCreate,
     handleDelete,
     handleSelect,
-    nextPage,
-    prevPage,
+    getNextPageData,
+    getPrevPageData,
     fetchUsers
     } = props;
 
@@ -49,13 +49,12 @@ export default props => {
   let enableSelectAll = true;
   let deselectOnClickaway = false;
 
-  let onPageClick = (type, page, pageSize) => {
+  let onPageClick = (type) => {
     if (type == 'next') {
-      nextPage();
+      getNextPageData();
     } else if (type == 'prev') {
-      prevPage();
+      getPrevPageData();
     }
-    fetchUsers({ page, pageSize });
   }
 
   return (

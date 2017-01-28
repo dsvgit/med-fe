@@ -1,5 +1,5 @@
 import {
-  USERS_LIST_FETCH_USERS,
+  USERS_LIST_FETCH_USERS_REQUEST,
   USERS_LIST_FETCH_USERS_SUCCEED,
   USERS_LIST_FETCH_USERS_FAILED,
   USERS_LIST_SELECT_USER,
@@ -27,7 +27,7 @@ export default function (state, action) {
   let { page } = state;
 
   switch (action.type) {
-    case USERS_LIST_FETCH_USERS:
+    case USERS_LIST_FETCH_USERS_REQUEST:
       return {
         ...state,
         fetchError: false,

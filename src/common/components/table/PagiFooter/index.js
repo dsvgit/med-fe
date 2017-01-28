@@ -36,10 +36,10 @@ export default class extends Component {
 
     return (
       <div style={styles.footerContent}>
-        <IconButton disabled={offset === 0} onClick={this.props.onPageClick.bind(null, 'prev', page == 1 ? page : page - 1, pageSize)}>
+        <IconButton disabled={offset === 0} onClick={this.props.onPageClick.bind(null, 'prev')}>
           <ChevronLeft/>
         </IconButton>
-        <IconButton disabled={offset + limit >= total} onClick={this.props.onPageClick.bind(null, 'next', page + 1, pageSize)}>
+        <IconButton disabled={offset + limit >= total} onClick={this.props.onPageClick.bind(null, 'next')}>
           <ChevronRight/>
         </IconButton>
         <div>{Math.min((offset + 1), total) + '-' + Math.min((offset + limit), total) + ' из ' + total}</div>

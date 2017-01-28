@@ -1,6 +1,6 @@
 import { apiV0 } from 'src/common/services/api';
 import {
-  USERS_LIST_FETCH_USERS,
+  USERS_LIST_FETCH_USERS_REQUEST,
   USERS_LIST_FETCH_USERS_SUCCEED,
   USERS_LIST_FETCH_USERS_FAILED,
   USERS_LIST_SELECT_USER,
@@ -8,15 +8,17 @@ import {
   USERS_LIST_NEXT_PAGE,
   USERS_LIST_PREV_PAGE
 } from 'src/admin/actionTypes/users/list';
+import _ from 'lodash';
 
 
-export function fetchUsers(params) {
-  return dispatch => {
-    dispatch({ type: USERS_LIST_FETCH_USERS });
+export function fetchUsers() {
+  return (dispatch, getState) => {
+    let state = _.get(getState(), 'users.list');
+    let params = _.pick(state, ['page', 'pageSize']);
 
-    apiV0.get(`users/`, {
-      params
-    })
+    dispatch(fetchUsersRequest());
+
+    apiV0.get(`users/`, { params })
     .then(response => {
       dispatch(fetchUsersSucceed(response));
     })
@@ -24,6 +26,10 @@ export function fetchUsers(params) {
       dispatch(fetchUsersFailed(response));
     });
   }
+}
+
+function fetchUsersRequest(payload) {
+  return { type: USERS_LIST_FETCH_USERS_REQUEST };
 }
 
 function fetchUsersSucceed(response) {
@@ -63,10 +69,24 @@ export function reset() {
   return { type: USERS_LIST_RESET };
 }
 
-export function nextPage() {
+export function getNextPageData() {
+  return dispatch => {
+    dispatch(nextPage());
+    dispatch(fetchUsers());
+  };
+}
+
+export function getPrevPageData() {
+  return dispatch => {
+    dispatch(prevPage());
+    dispatch(fetchUsers());
+  };
+}
+
+function nextPage() {
   return { type: USERS_LIST_NEXT_PAGE };
 }
 
-export function prevPage() {
+function prevPage() {
   return { type: USERS_LIST_PREV_PAGE };
 }
