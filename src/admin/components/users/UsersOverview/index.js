@@ -24,6 +24,7 @@ import TextField from 'material-ui/TextField';
 import Toggle from 'material-ui/Toggle';
 import RaisedButton from 'material-ui/RaisedButton';
 import Checkbox from 'material-ui/Checkbox';
+import ActionLockOpen from 'material-ui/svg-icons/action/lock-open';
 
 import BaseLayout from 'src/admin/containers/layouts/BaseLayout';
 import PagiFooter from 'src/common/components/table/PagiFooter';
@@ -89,7 +90,7 @@ export default props => {
               <TableHeaderColumn style={{height: 24}}>Логин</TableHeaderColumn>
               <TableHeaderColumn style={{height: 24}}>Имя</TableHeaderColumn>
               <TableHeaderColumn style={{height: 24}}>Почта</TableHeaderColumn>
-              <TableHeaderColumn style={{height: 24}}>Администратор</TableHeaderColumn>
+              <TableHeaderColumn style={{height: 24}}><ActionLockOpen /></TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody  displayRowCheckbox={showCheckboxes}

@@ -7,7 +7,9 @@ import { withRouter } from 'react-router';
 import {
   fetchUser,
   saveUser,
+  saveCard,
   changeField,
+  changeTab,
   reset
 } from 'src/admin/actions/users/editor';
 import { setTitle } from 'src/admin/actions/app';
@@ -57,8 +59,14 @@ let mapDispatchToProps = dispatch => {
     reset(user) {
       dispatch(reset(user));
     },
-    save(payload) {
-      dispatch(saveUser(payload));
+    saveUser() {
+      dispatch(saveUser());
+    },
+    saveCard() {
+      dispatch(saveCard());
+    },
+    changeTab(payload) {
+      dispatch(changeTab(payload));
     },
     setTitle(title) {
       dispatch(setTitle(title));

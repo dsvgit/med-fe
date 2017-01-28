@@ -6,6 +6,7 @@ import {
   USERS_EDITOR_SAVE_USER_SUCCEED,
   USERS_EDITOR_SAVE_USER_FAILED,
   USERS_EDITOR_CHANGE_FIELD,
+  USERS_EDITOR_CHANGE_TAB,
   USERS_EDITOR_RESET,
   USERS_EDITOR_VALIDATE
 } from 'src/admin/actionTypes/users/editor';
@@ -28,6 +29,7 @@ export default function (state, action) {
       calories: 0
     },
     errors: {},
+    activeTab: 'profile',
     fetchError: false,
     fetchPending: false
   };
@@ -91,6 +93,12 @@ export default function (state, action) {
       return {
         ...state,
         errors
+      };
+    case USERS_EDITOR_CHANGE_TAB:
+      let { tab: activeTab } = action;
+      return {
+        ...state,
+        activeTab
       };
     case USERS_EDITOR_SAVE_USER:
       return state;

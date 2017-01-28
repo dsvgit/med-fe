@@ -18,6 +18,7 @@
     "jquery-param": "^0.2.0",
     "material-ui-number-input": "^5.0.16",
     "react-infinite": "^0.10.0",
+    "react-swipeable-views": "^0.10.3",
     "reset-css": "^2.2.0",
     "validatorjs": "^3.11.0"
   },

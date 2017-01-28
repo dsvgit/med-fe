@@ -23,8 +23,9 @@ export default props => {
   }
 
   const styles = {
-    block: {
-      maxWidth: 250,
+    input: {
+      width: 60,
+      marginLeft: 15
     }
   };
 
@@ -39,6 +40,7 @@ export default props => {
   return (
     <div>
       <NumberInput
+        style={styles.input}
         floatingLabelText="Белки"
         value={getValue(prot)}
         onChange={handleChange('prot')}
@@ -46,8 +48,8 @@ export default props => {
         min={0}
         max={120}
         strategy="warn" />
-      <br />
       <NumberInput
+        style={styles.input}
         floatingLabelText="Жиры"
         value={getValue(fats)}
         onChange={handleChange('fats')}
@@ -55,8 +57,8 @@ export default props => {
         min={0}
         max={120}
         strategy="warn" />
-      <br />
       <NumberInput
+        style={styles.input}
         floatingLabelText="Углеводы"
         value={getValue(carb)}
         onChange={handleChange('carb')}
@@ -64,8 +66,8 @@ export default props => {
         min={0}
         max={120}
         strategy="warn" />
-      <br />
       <NumberInput
+        style={styles.input}
         floatingLabelText="Калории"
         value={getValue(calories)}
         onChange={handleChange('calories')}
