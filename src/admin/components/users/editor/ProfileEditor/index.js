@@ -15,6 +15,7 @@ export default props => {
       password,
       isAdmin
       },
+    errors,
     changeField
     } = props;
 
@@ -24,6 +25,8 @@ export default props => {
     }
   };
 
+  let getError = field => errors.first && errors.first(field);
+
   return (
     <div>
       <div style={styles.block}>
@@ -32,6 +35,7 @@ export default props => {
           value={login}
           onChange={(e, v) => changeField({ name: 'login', value: v })}
           floatingLabelFixed={true}
+          errorText={getError('login')}
         />
         <br />
         <TextField
@@ -39,6 +43,7 @@ export default props => {
           value={firstname}
           onChange={(e, v) => changeField({ name: 'firstname', value: v })}
           floatingLabelFixed={true}
+          errorText={getError('firstname')}
         />
         <br />
         <TextField
@@ -46,6 +51,7 @@ export default props => {
           value={lastname}
           onChange={(e, v) => changeField({ name: 'lastname', value: v })}
           floatingLabelFixed={true}
+          errorText={getError('lastname')}
         />
         <br />
         <TextField
@@ -53,6 +59,7 @@ export default props => {
           value={email}
           onChange={(e, v) => changeField({ name: 'email', value: v })}
           floatingLabelFixed={true}
+          errorText={getError('email')}
         />
         <br />
         <TextField

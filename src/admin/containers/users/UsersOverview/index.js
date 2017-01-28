@@ -12,10 +12,12 @@ import {
   usersSelect,
   reset,
   getNextPageData,
-  getPrevPageData
+  getPrevPageData,
+  changeField
 } from 'src/admin/actions/users/list';
 import { setTitle } from 'src/admin/actions/app';
 import UsersOverview from 'src/admin/components/users/UsersOverview';
+
 
 class UsersOverviewContainer extends C {
   componentDidMount() {
@@ -41,12 +43,13 @@ class UsersOverviewContainer extends C {
 }
 
 let mapStateToProps = state => {
-  let { users, total, pageSize, page } = state.users.list;
+  let { users, total, pageSize, page, search } = state.users.list;
   return {
     users,
     total,
     pageSize,
-    page
+    page,
+    search
   };
 }
 
@@ -75,6 +78,9 @@ let mapDispatchToProps = dispatch => {
     },
     setTitle(title) {
       dispatch(setTitle(title));
+    },
+    changeField(payload) {
+      dispatch(changeField(payload));
     }
   };
 }

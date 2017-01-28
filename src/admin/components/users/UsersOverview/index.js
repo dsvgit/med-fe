@@ -42,7 +42,8 @@ export default props => {
     handleSelect,
     getNextPageData,
     getPrevPageData,
-    fetchUsers
+    changeField,
+    search
     } = props;
 
   let showCheckboxes = true;
@@ -71,17 +72,24 @@ export default props => {
           secondary={true}
           onClick={handleDelete}
         />
+        <TextField
+          placeholder="Поиск"
+          style={{ marginLeft: 15, width: 'auto' }}
+          value={search}
+          onChange={(e, v) => changeField({ name: 'search', value: v })}
+          floatingLabelFixed={true}
+        />
         <Table onRowSelection={ids => handleSelect(_.map(_.pick(users, ids), '_id'))}>
           <TableHeader
             displaySelectAll={showCheckboxes}
             adjustForCheckbox={showCheckboxes}
             enableSelectAll={enableSelectAll}
           >
-            <TableRow>
-              <TableHeaderColumn>Логин</TableHeaderColumn>
-              <TableHeaderColumn>Имя</TableHeaderColumn>
-              <TableHeaderColumn>Почта</TableHeaderColumn>
-              <TableHeaderColumn>Администратор</TableHeaderColumn>
+            <TableRow style={{height: 24}}>
+              <TableHeaderColumn style={{height: 24}}>Логин</TableHeaderColumn>
+              <TableHeaderColumn style={{height: 24}}>Имя</TableHeaderColumn>
+              <TableHeaderColumn style={{height: 24}}>Почта</TableHeaderColumn>
+              <TableHeaderColumn style={{height: 24}}>Администратор</TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody  displayRowCheckbox={showCheckboxes}

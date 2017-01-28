@@ -5,7 +5,8 @@ import {
   USERS_LIST_SELECT_USER,
   USERS_LIST_RESET,
   USERS_LIST_NEXT_PAGE,
-  USERS_LIST_PREV_PAGE
+  USERS_LIST_PREV_PAGE,
+  USERS_LIST_CHANGE_FIELD
 } from 'src/admin/actionTypes/users/list';
 
 
@@ -15,6 +16,7 @@ export default function (state, action) {
     page: 1,
     total: 0,
     pageSize: 10,
+    search: '',
     fetchError: false,
     fetchPending: false,
     selected: []
@@ -65,6 +67,12 @@ export default function (state, action) {
       return {
         ...state,
         page: prevPage
+      };
+    case USERS_LIST_CHANGE_FIELD:
+      let { name, value } = action;
+      return {
+        ...state,
+        [name]: value
       };
     case USERS_LIST_RESET:
       return defaultState;

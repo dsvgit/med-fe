@@ -6,7 +6,8 @@ import {
   USERS_EDITOR_SAVE_USER_SUCCEED,
   USERS_EDITOR_SAVE_USER_FAILED,
   USERS_EDITOR_CHANGE_FIELD,
-  USERS_EDITOR_RESET
+  USERS_EDITOR_RESET,
+  USERS_EDITOR_VALIDATE
 } from 'src/admin/actionTypes/users/editor';
 
 export default function (state, action) {
@@ -26,6 +27,7 @@ export default function (state, action) {
       carb: 0,
       calories: 0
     },
+    errors: {},
     fetchError: false,
     fetchPending: false
   };
@@ -83,6 +85,12 @@ export default function (state, action) {
           ...state[context],
           [name]: value
         }
+      };
+    case USERS_EDITOR_VALIDATE:
+      let { errors } = action;
+      return {
+        ...state,
+        errors
       };
     case USERS_EDITOR_SAVE_USER:
       return state;

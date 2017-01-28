@@ -1,3 +1,5 @@
+import Validator from 'validatorjs';
+
 import { apiV0 } from 'src/common/services/api';
 import history from 'src/admin/services/history';
 import {
@@ -8,9 +10,17 @@ import {
   USERS_EDITOR_SAVE_USER_SUCCEED,
   USERS_EDITOR_SAVE_USER_FAILED,
   USERS_EDITOR_CHANGE_FIELD,
+  USERS_EDITOR_VALIDATE,
   USERS_EDITOR_RESET
 } from 'src/admin/actionTypes/users/editor';
 
+
+var schema = {
+  login: 'required|alpha_num',
+  firstname: 'required|alpha',
+  lastname: 'required|alpha',
+  email: 'required|email'
+};
 
 export function fetchUser(id) {
   return dispatch => {
@@ -88,7 +98,13 @@ function saveUserFailed(response) {
 }
 
 export function changeField(payload) {
-  return { type: USERS_EDITOR_CHANGE_FIELD, ...payload };
+  return (dispatch, getState) => {
+    dispatch({ type: USERS_EDITOR_CHANGE_FIELD, ...payload });
+    let state = _.get(getState(), 'users.editor.user');
+    let validation = new Validator(state, schema);
+    validation.passes();
+    dispatch({ type: USERS_EDITOR_VALIDATE, errors: validation.errors });
+  }
 }
 
 export function reset() {

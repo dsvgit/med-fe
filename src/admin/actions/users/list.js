@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import { apiV0 } from 'src/common/services/api';
 import {
   USERS_LIST_FETCH_USERS_REQUEST,
@@ -6,15 +8,15 @@ import {
   USERS_LIST_SELECT_USER,
   USERS_LIST_RESET,
   USERS_LIST_NEXT_PAGE,
-  USERS_LIST_PREV_PAGE
+  USERS_LIST_PREV_PAGE,
+  USERS_LIST_CHANGE_FIELD
 } from 'src/admin/actionTypes/users/list';
-import _ from 'lodash';
 
 
 export function fetchUsers() {
   return (dispatch, getState) => {
     let state = _.get(getState(), 'users.list');
-    let params = _.pick(state, ['page', 'pageSize']);
+    let params = _.pick(state, ['page', 'pageSize', 'search']);
 
     dispatch(fetchUsersRequest());
 
@@ -27,6 +29,8 @@ export function fetchUsers() {
     });
   }
 }
+
+const fetchUsersDebounced = _.debounce(dispatch => dispatch(fetchUsers()), 500);
 
 function fetchUsersRequest(payload) {
   return { type: USERS_LIST_FETCH_USERS_REQUEST };
@@ -89,4 +93,11 @@ function nextPage() {
 
 function prevPage() {
   return { type: USERS_LIST_PREV_PAGE };
+}
+
+export function changeField(payload) {
+  return dispatch => {
+    dispatch({ type: USERS_LIST_CHANGE_FIELD, ...payload });
+    fetchUsersDebounced(dispatch);
+  };
 }
