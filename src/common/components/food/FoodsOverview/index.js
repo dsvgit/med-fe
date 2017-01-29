@@ -26,7 +26,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Checkbox from 'material-ui/Checkbox';
 import ActionLockOpen from 'material-ui/svg-icons/action/lock-open';
 
-import BaseLayout from 'src/admin/containers/layouts/BaseLayout';
+import { BaseLayout } from 'src/common/services/config';
 import PagiFooter from 'src/common/components/table/PagiFooter';
 
 import './index.scss';

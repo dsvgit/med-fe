@@ -6,7 +6,7 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
 import { withRouter } from 'react-router';
 
-import BaseLayout from 'src/admin/containers/layouts/BaseLayout';
+import { BaseLayout } from 'src/common/services/config';
 
 
 let FoodsEditor = props => {

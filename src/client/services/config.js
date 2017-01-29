@@ -1,3 +1,4 @@
 export default {
-  subAppUrl: '/client'
+  subAppUrl: '/client',
+  BaseLayout: require('src/client/containers/layouts/BaseLayout')
 }

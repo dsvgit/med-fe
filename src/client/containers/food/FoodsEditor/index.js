@@ -10,8 +10,8 @@ import {
   changeField,
   goToOverview,
   reset
-} from 'src/admin/actions/foods/editor';
-import { setTitle } from 'src/admin/actions/app';
+} from 'src/client/actions/foods/editor';
+import { setTitle } from 'src/client/actions/app';
 import FoodsEditor from 'src/common/components/food/FoodsEditor';
 
 

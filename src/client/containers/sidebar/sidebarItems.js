@@ -1,5 +1,6 @@
 import React from 'react';
 import ActionHome from 'material-ui/svg-icons/action/home';
+import MapsRestaurant from 'material-ui/svg-icons/maps/restaurant';
 
 
 export default [
@@ -8,5 +9,11 @@ export default [
     title: 'Главная',
     icon: <ActionHome />,
     url: '/'
+  },
+  {
+    id: 'food',
+    title: 'Продукты',
+    icon: <MapsRestaurant />,
+    url: '/food'
   }
 ];

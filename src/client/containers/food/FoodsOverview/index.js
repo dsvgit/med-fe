@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import _ from 'lodash';
 
-import history from 'src/admin/services/history';
+import history from 'src/client/services/history';
 import {
   fetchFoods,
   deleteFoods,
@@ -14,8 +14,8 @@ import {
   getNextPageData,
   getPrevPageData,
   changeField
-} from 'src/admin/actions/foods/list';
-import { setTitle } from 'src/admin/actions/app';
+} from 'src/client/actions/foods/list';
+import { setTitle } from 'src/client/actions/app';
 import FoodsOverview from 'src/common/components/food/FoodsOverview';
 
 

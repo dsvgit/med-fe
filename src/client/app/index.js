@@ -13,6 +13,8 @@ import _ from 'lodash';
 import store from 'src/client/services/store';
 import browserHistory from 'src/client/services/history';
 import DashboardOverview from 'src/client/containers/dashboard/DashboardOverview';
+import FoodsOverview from 'src/client/containers/food/FoodsOverview';
+import FoodsEditor from 'src/client/containers/food/FoodsEditor';
 
 import { fetchCurrentUser } from 'src/client/actions/app';
 
@@ -33,6 +35,12 @@ class App extends C {
           <Router history={browserHistory}>
             <Route path="/"
                    component={DashboardOverview} />
+            <Route path="/food"
+                   component={FoodsOverview} />
+            <Route path="/food/new"
+                   component={FoodsEditor} />
+            <Route path="/food/:foodId"
+                   component={FoodsEditor} />
           </Router>
         </Provider>
       </MuiThemeProvider>
