@@ -31,7 +31,8 @@ export default function (state, action) {
     errors: {},
     activeTab: 'profile',
     fetchError: false,
-    fetchPending: false
+    fetchPending: false,
+    savePending: false
   };
 
   if (typeof state === 'undefined') {
@@ -101,11 +102,26 @@ export default function (state, action) {
         activeTab
       };
     case USERS_EDITOR_SAVE_USER:
-      return state;
+      return {
+        ...state,
+        savePending: true
+      };
     case USERS_EDITOR_SAVE_USER_SUCCEED:
+      return {
+        ...state,
+        user: {
+          ...action.user,
+          password: '',
+          id: action.user._id
+        },
+        savePending: false
+      };
       return state;
     case USERS_EDITOR_SAVE_USER_FAILED:
-      return state;
+      return {
+        ...state,
+        savePending: false
+      };
     case USERS_EDITOR_RESET:
       return defaultState;
     default:

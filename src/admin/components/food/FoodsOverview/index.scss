@@ -1,24 +1,10 @@
-.action-button {
-  margin-right: 5px;
-}
-
-#users-overview {
+#foods-overview {
   .normal-column {
 
   }
 
   .tablet-column {
     display: none;
-  }
-
-  @media (max-width: 400px) {
-    .normal-column {
-      display: none;
-    }
-
-    .tablet-column {
-      display: none;
-    }
   }
 
   @media (max-width: 768px) {
@@ -31,7 +17,21 @@
     }
   }
 
-  .icon-column {
+  @media (max-width: 400px) {
+    .normal-column {
+      display: none;
+    }
+
+    .tablet-column {
+      display: none;
+    }
+  }
+
+  .number-column {
     width: 10px;
+  }
+
+  .summary-column {
+    width: 150px;
   }
 }

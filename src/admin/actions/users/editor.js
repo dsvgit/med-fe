@@ -115,7 +115,7 @@ export function saveCard() {
 }
 
 function saveUserSucceed(response) {
-  return { type: USERS_EDITOR_SAVE_USER_SUCCEED, user: response.data };
+  return { type: USERS_EDITOR_SAVE_USER_SUCCEED, user: response.data.user };
 }
 
 function saveUserFailed(response) {
@@ -131,6 +131,10 @@ export function changeField(payload) {
 
 export function changeTab(payload) {
   return { type: USERS_EDITOR_CHANGE_TAB, tab: payload }
+}
+
+export function goToOverview() {
+  history.replace('/users');
 }
 
 function validate(dispatch, getState) {

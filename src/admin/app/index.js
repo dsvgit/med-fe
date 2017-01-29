@@ -15,7 +15,9 @@ import browserHistory from 'src/admin/services/history';
 import DashboardOverview from 'src/admin/containers/dashboard/DashboardOverview';
 import UsersOverview from 'src/admin/containers/users/UsersOverview';
 import UsersEditor from 'src/admin/containers/users/editor/UsersEditor';
-import FoodOverview from 'src/admin/containers/food/FoodOverview';
+import FoodsOverview from 'src/admin/containers/food/FoodsOverview';
+import FoodsEditor from 'src/admin/containers/food/FoodsEditor';
+import ManageOverview from 'src/admin/containers/manage/ManageOverview';
 
 import { fetchCurrentUser } from 'src/admin/actions/app';
 import 'src/common/favicon/favicon.png';
@@ -44,7 +46,13 @@ class App extends C {
             <Route path="/user/:userId"
                    component={UsersEditor} />
             <Route path="/food"
-                   component={FoodOverview} />
+                   component={FoodsOverview} />
+            <Route path="/food/new"
+                   component={FoodsEditor} />
+            <Route path="/food/:foodId"
+                   component={FoodsEditor} />
+            <Route path="/manage"
+                   component={ManageOverview} />
           </Router>
         </Provider>
       </MuiThemeProvider>

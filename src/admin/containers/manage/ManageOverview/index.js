@@ -4,14 +4,17 @@ import React, {
 import { connect } from 'react-redux';
 
 import { setTitle } from 'src/admin/actions/app';
-import FoodOverview from 'src/admin/components/food/FoodOverview';
+import {
+  importFoods
+} from 'src/admin/actions/manage';
+import ManageOverview from 'src/admin/components/manage/ManageOverview';
 
-class FoodOverviewContainer extends C {
+class ManageOverviewContainer extends C {
   componentDidMount() {
     let {
       setTitle
       } = this.props;
-    setTitle('Продукты');
+    setTitle('Натсройки');
   }
 
   componentWillUnmount() {
@@ -20,7 +23,7 @@ class FoodOverviewContainer extends C {
   }
 
   render() {
-    return <FoodOverview { ...this.props } />
+    return <ManageOverview { ...this.props } />
   }
 }
 
@@ -32,8 +35,11 @@ let mapDispatchToProps = dispatch => {
   return {
     setTitle(title) {
       dispatch(setTitle(title));
+    },
+    importFoods() {
+      dispatch(importFoods())
     }
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(FoodOverviewContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ManageOverviewContainer);

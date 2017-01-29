@@ -24,7 +24,7 @@ export default props => {
 
   const styles = {
     input: {
-      width: 60,
+      width: 70,
       marginLeft: 15
     }
   };
@@ -46,7 +46,7 @@ export default props => {
         onChange={handleChange('prot')}
         onRequestValue={handleRequest('prot')}
         min={0}
-        max={120}
+        max={100}
         strategy="warn" />
       <NumberInput
         style={styles.input}
@@ -55,7 +55,7 @@ export default props => {
         onChange={handleChange('fats')}
         onRequestValue={handleRequest('fats')}
         min={0}
-        max={120}
+        max={100}
         strategy="warn" />
       <NumberInput
         style={styles.input}
@@ -64,7 +64,7 @@ export default props => {
         onChange={handleChange('carb')}
         onRequestValue={handleRequest('carb')}
         min={0}
-        max={120}
+        max={100}
         strategy="warn" />
       <NumberInput
         style={styles.input}
@@ -73,7 +73,7 @@ export default props => {
         onChange={handleChange('calories')}
         onRequestValue={handleRequest('calories')}
         min={0}
-        max={120}
+        max={1000}
         strategy="warn" />
     </div>
   );

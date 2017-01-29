@@ -34,7 +34,7 @@ import './index.scss';
 
 export default props => {
   let {
-    users,
+    foods,
     total,
     page,
     pageSize,
@@ -59,9 +59,15 @@ export default props => {
     }
   }
 
+  let styles = {
+    numberColumn: {
+      width: 10
+    }
+  };
+
   return (
     <BaseLayout>
-      <div id="users-overview">
+      <div id="foods-overview">
         <RaisedButton
           label="Добавить"
           primary={true}
@@ -80,27 +86,31 @@ export default props => {
           onChange={(e, v) => changeField({ name: 'search', value: v })}
           floatingLabelFixed={true}
         />
-        <Table onRowSelection={ids => handleSelect(_.map(_.pick(users, ids), '_id'))}>
+        <Table onRowSelection={ids => handleSelect(_.map(_.pick(foods, ids), '_id'))}>
           <TableHeader
             displaySelectAll={showCheckboxes}
             adjustForCheckbox={showCheckboxes}
             enableSelectAll={enableSelectAll}
           >
             <TableRow>
-              <TableHeaderColumn>Логин</TableHeaderColumn>
-              <TableHeaderColumn>Имя</TableHeaderColumn>
-              <TableHeaderColumn className="icon-column normal-column"><ActionLockOpen /></TableHeaderColumn>
+              <TableHeaderColumn>Наименование</TableHeaderColumn>
+              <TableHeaderColumn className="normal-column number-column">Б</TableHeaderColumn>
+              <TableHeaderColumn className="normal-column number-column">Ж</TableHeaderColumn>
+              <TableHeaderColumn className="normal-column number-column">У</TableHeaderColumn>
+              <TableHeaderColumn className="normal-column number-column">К</TableHeaderColumn>
+              <TableHeaderColumn className="tablet-column summary-column">Б/Ж/У/К</TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody  displayRowCheckbox={showCheckboxes}
                       deselectOnClickaway={deselectOnClickaway} >
-            {users.map(row => {
+            {foods.map(row => {
               let {
                 _id: id,
-                firstname,
-                lastname,
-                isAdmin,
-                email
+                title,
+                prot,
+                fats,
+                carb,
+                calories
                 } = row;
 
               return (
@@ -108,17 +118,15 @@ export default props => {
                           selected={false}
                           rowNumber={id}>
                   <TableRowColumn>
-                    <Link to={`/user/${id}`}>
-                      {row.login}
+                    <Link to={`/food/${id}`}>
+                      {row.title}
                     </Link>
                   </TableRowColumn>
-                  <TableRowColumn>{`${firstname} ${lastname}`}</TableRowColumn>
-                  <TableRowColumn className="icon-column normal-column">
-                    <Checkbox
-                      checked={isAdmin}
-                      disabled={true}
-                    />
-                  </TableRowColumn>
+                  <TableRowColumn className="normal-column number-column">{prot}</TableRowColumn>
+                  <TableRowColumn className="normal-column number-column">{fats}</TableRowColumn>
+                  <TableRowColumn className="normal-column number-column">{carb}</TableRowColumn>
+                  <TableRowColumn className="normal-column number-column">{calories}</TableRowColumn>
+                  <TableRowColumn className="tablet-column summary-column">{`${prot}/${fats}/${carb}/${calories}`}</TableRowColumn>
                 </TableRow>
               )
             })}

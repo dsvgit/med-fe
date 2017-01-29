@@ -10,6 +10,7 @@ import {
   saveCard,
   changeField,
   changeTab,
+  goToOverview,
   reset
 } from 'src/admin/actions/users/editor';
 import { setTitle } from 'src/admin/actions/app';
@@ -70,6 +71,9 @@ let mapDispatchToProps = dispatch => {
     },
     setTitle(title) {
       dispatch(setTitle(title));
+    },
+    goToOverview() {
+      goToOverview();
     }
   };
 }

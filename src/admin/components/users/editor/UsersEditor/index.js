@@ -18,6 +18,7 @@ let UsersEditor = props => {
     saveCard,
     activeTab,
     changeTab,
+    goToOverview,
     params: {
       userId
       }
@@ -63,6 +64,13 @@ let UsersEditor = props => {
         label="Сохранить"
         primary={true}
         onClick={handleSave}
+        className="action-button"
+      />
+      <RaisedButton
+        label="Назад"
+        secondary={true}
+        onClick={goToOverview}
+        className="action-button"
       />
     </BaseLayout>
   );
