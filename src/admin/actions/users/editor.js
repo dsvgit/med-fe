@@ -18,11 +18,13 @@ import {
 
 
 var schema = {
-  login: 'required|alpha_num',
+  login: 'required|alpha_num|login_available',
   firstname: 'required|person_name',
   lastname: 'required|person_name',
   email: 'required|email'
 };
+
+var debouncedValidate = _.debounce(validate, 300);
 
 export function fetchUser(id) {
   return dispatch => {
@@ -59,33 +61,33 @@ export function saveUser() {
 
     let user = _.get(getState(), 'users.editor.user');
 
-    if (!validate(dispatch, getState)) return;
+    debouncedValidate(dispatch, getState, () => {
+      let _user = _.pick(user, ['login', 'firstname', 'lastname', 'email', 'isAdmin']);
+      let { id, password } = user;
+      if (id) _user.id = id;
+      if (password) _user.password = password;
 
-    let _user = _.pick(user, ['login', 'firstname', 'lastname', 'email', 'isAdmin']);
-    let { id, password } = user;
-    if (id) _user.id = id;
-    if (password) _user.password = password;
+      let params = {
+        user: _user
+      };
 
-    let params = {
-      user: _user
-    };
+      let savePromise;
+      if (!user.id) {
+        savePromise = apiV0.post(`user/`, params);
+      } else {
+        savePromise = apiV0.patch(`user/${user.id}/`, params);
+      }
 
-    let savePromise;
-    if (!user.id) {
-      savePromise = apiV0.post(`user/`, params);
-    } else {
-      savePromise = apiV0.patch(`user/${user.id}/`, params);
-    }
-
-    savePromise
-    .then(response => {
-      let { user } = response.data;
-      let { _id: id } = user;
-      dispatch(saveUserSucceed(response));
-      history.replace(`/user/${id}`);
-    })
-    .catch(response => {
-      dispatch(saveUserFailed(response));
+      savePromise
+      .then(response => {
+        let { user } = response.data;
+        let { _id: id } = user;
+        dispatch(saveUserSucceed(response));
+        history.replace(`/user/${id}`);
+      })
+      .catch(response => {
+        dispatch(saveUserFailed(response));
+      });
     });
   }
 }
@@ -125,7 +127,7 @@ function saveUserFailed(response) {
 export function changeField(payload) {
   return (dispatch, getState) => {
     dispatch({ type: USERS_EDITOR_CHANGE_FIELD, ...payload });
-    validate(dispatch, getState);
+    debouncedValidate(dispatch, getState);
   }
 }
 
@@ -137,16 +139,23 @@ export function goToOverview() {
   history.replace('/users');
 }
 
-function validate(dispatch, getState) {
+function validate(dispatch, getState, cb) {
   let user = _.get(getState(), 'users.editor.user');
   let _schema = Object.assign({}, schema);
   if (!user.id) {
     _schema.password = 'required';
+  } else {
+    _schema.login = _schema.login + ':' + user.id;
   }
   let validation = new Validator(user, _schema);
-  let passes = validation.passes();
-  dispatch({ type: USERS_EDITOR_VALIDATE, errors: validation.errors });
-  return passes;
+  validation.passes(function() {
+    cb && cb();
+    dispatch({ type: USERS_EDITOR_VALIDATE, errors: validation.errors });
+  });
+
+  validation.fails(function() {
+    dispatch({ type: USERS_EDITOR_VALIDATE, errors: validation.errors });
+  });
 }
 
 export function reset() {
