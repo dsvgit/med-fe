@@ -59,7 +59,7 @@ let UsersEditor = props => {
           : null
         }
       </Tabs>
-      <br/>
+      <br />
       <RaisedButton
         label="Сохранить"
         primary={true}

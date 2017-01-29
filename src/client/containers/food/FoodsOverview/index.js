@@ -28,7 +28,7 @@ class FoodsOverviewContainer extends C {
       } = this.props;
 
     reset();
-    setTitle('Продукты');
+    setTitle('Мои продукты');
     fetchFoods();
   }
 
