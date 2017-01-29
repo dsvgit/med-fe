@@ -13,7 +13,8 @@ import {
   USERS_EDITOR_CHANGE_FIELD,
   USERS_EDITOR_CHANGE_TAB,
   USERS_EDITOR_VALIDATE,
-  USERS_EDITOR_RESET
+  USERS_EDITOR_RESET,
+  USERS_EDITOR_GENERATE_PASSOWRD
 } from 'src/admin/actionTypes/users/editor';
 
 
@@ -160,4 +161,12 @@ function validate(dispatch, getState, cb) {
 
 export function reset() {
   return { type: USERS_EDITOR_RESET };
+}
+
+export function generatePassword() {
+  return (dispatch, getState) => {
+    let generatedPassword = Math.random().toString(36).slice(-8);
+    dispatch({ type: USERS_EDITOR_GENERATE_PASSOWRD, generatedPassword });
+    debouncedValidate(dispatch, getState);
+  }
 }

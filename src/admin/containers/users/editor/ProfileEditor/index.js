@@ -4,7 +4,8 @@ import React, {
 import { connect } from 'react-redux';
 
 import {
-  changeField
+  changeField,
+  generatePassword
 } from 'src/admin/actions/users/editor';
 import ProfileEditor from 'src/admin/components/users/editor/ProfileEditor';
 
@@ -23,6 +24,9 @@ let mapDispatchToProps = dispatch => {
   return {
     changeField(payload) {
       dispatch(changeField({ ...payload, context: 'user' }));
+    },
+    generatePassword() {
+      dispatch(generatePassword());
     }
   };
 }

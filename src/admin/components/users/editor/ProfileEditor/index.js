@@ -16,7 +16,9 @@ export default props => {
       isAdmin
       },
     errors,
-    changeField
+    changeField,
+    generatedPassword,
+    generatePassword
     } = props;
 
   const styles = {
@@ -29,7 +31,7 @@ export default props => {
 
   return (
     <div>
-      <div style={styles.block}>
+      <div>
         <TextField
           floatingLabelText="Логин"
           value={login}
@@ -61,6 +63,20 @@ export default props => {
           errorText={getError('email')}
         />
         <br />
+        <Checkbox
+          label="Аминистратор"
+          checked={isAdmin}
+          style={{marginTop: 10}}
+          onCheck={(e, v) => changeField({ name: 'isAdmin', value: v })}
+        />
+        <br />
+        <RaisedButton
+          label="Новый"
+          primary
+          onClick={generatePassword}
+        />
+        <span style={{ marginLeft: 10 }}>{generatedPassword}</span>
+        <br />
         <TextField
           floatingLabelText="Пароль"
           value={password}
@@ -68,13 +84,6 @@ export default props => {
           onChange={(e, v) => changeField({ name: 'password', value: v })}
           floatingLabelFixed={true}
           errorText={getError('password')}
-        />
-        <br />
-        <Checkbox
-          label="Аминистратор"
-          checked={isAdmin}
-          style={{marginTop: 10}}
-          onCheck={(e, v) => changeField({ name: 'isAdmin', value: v })}
         />
       </div>
     </div>

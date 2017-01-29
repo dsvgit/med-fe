@@ -8,8 +8,10 @@ import {
   USERS_EDITOR_CHANGE_FIELD,
   USERS_EDITOR_CHANGE_TAB,
   USERS_EDITOR_RESET,
-  USERS_EDITOR_VALIDATE
+  USERS_EDITOR_VALIDATE,
+  USERS_EDITOR_GENERATE_PASSOWRD
 } from 'src/admin/actionTypes/users/editor';
+
 
 export default function (state, action) {
   let defaultState = {
@@ -28,6 +30,7 @@ export default function (state, action) {
       carb: 0,
       calories: 0
     },
+    generatedPassword: '',
     errors: {},
     activeTab: 'profile',
     fetchError: false,
@@ -87,7 +90,8 @@ export default function (state, action) {
         [context]: {
           ...state[context],
           [name]: value
-        }
+        },
+        generatedPassword: ''
       };
     case USERS_EDITOR_VALIDATE:
       let { errors } = action;
@@ -121,6 +125,16 @@ export default function (state, action) {
       return {
         ...state,
         savePending: false
+      };
+    case USERS_EDITOR_GENERATE_PASSOWRD:
+      let { generatedPassword } = action;
+      return {
+        ...state,
+        generatedPassword,
+        user: {
+          ...state.user,
+          password: generatedPassword
+        }
       };
     case USERS_EDITOR_RESET:
       return defaultState;
