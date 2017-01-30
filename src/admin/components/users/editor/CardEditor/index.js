@@ -37,6 +37,8 @@ export default props => {
     return (v) => changeField({ name, value: v })
   }
 
+  let max = 999999;
+
   return (
     <div>
       <NumberInput
@@ -46,7 +48,7 @@ export default props => {
         onChange={handleChange('prot')}
         onRequestValue={handleRequest('prot')}
         min={0}
-        max={100}
+        max={max}
         strategy="warn" />
       <NumberInput
         style={styles.input}
@@ -55,7 +57,7 @@ export default props => {
         onChange={handleChange('fats')}
         onRequestValue={handleRequest('fats')}
         min={0}
-        max={100}
+        max={max}
         strategy="warn" />
       <NumberInput
         style={styles.input}
@@ -64,7 +66,7 @@ export default props => {
         onChange={handleChange('carb')}
         onRequestValue={handleRequest('carb')}
         min={0}
-        max={100}
+        max={max}
         strategy="warn" />
       <NumberInput
         style={styles.input}
@@ -73,7 +75,7 @@ export default props => {
         onChange={handleChange('calories')}
         onRequestValue={handleRequest('calories')}
         min={0}
-        max={1000}
+        max={max}
         strategy="warn" />
     </div>
   );
