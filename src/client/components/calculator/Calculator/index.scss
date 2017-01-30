@@ -1,14 +1,8 @@
 :local {
   .content {
-    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-
-  .header {
-    font-size: 36px;
-    margin-bottom: 15px;
   }
 
   .paper {
@@ -17,7 +11,6 @@
     align-items: center;
     padding: 15px;
     padding-top: 0;
-    width: 700px;
     margin-bottom: 20px;
   }
 
@@ -28,7 +21,7 @@
 
   .main-card {
     width: 150px;
-    height: 90px;
+    height: 98px;
     text-align: center;
     padding: 11px;
     margin-bottom: 10px;
@@ -37,7 +30,6 @@
     margin-right: 15px;
 
     .card-title {
-      margin-bottom: 5px;
       font-size: 18px;
       color: grey;
       font-weight: 500;
@@ -45,14 +37,15 @@
 
     .card-value {
       font-size: 32px;
-      margin-top: 10px;
     }
   }
 
   .controls {
     display: flex;
-    margin-bottom: 10px;
-    margin-left: -60px;
+    width: 256px;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .control {
@@ -71,6 +64,9 @@
   .cards {
     display: flex;
     flex-flow: row;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .card {

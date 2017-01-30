@@ -16,6 +16,7 @@ import DashboardOverview from 'src/client/containers/dashboard/DashboardOverview
 import FoodsOverview from 'src/client/containers/food/FoodsOverview';
 import FoodsEditor from 'src/client/containers/food/FoodsEditor';
 import ProfileEditor from 'src/client/containers/profile/ProfileEditor';
+import Calculator from 'src/client/containers/calculator/Calculator';
 
 import { fetchCurrentUser } from 'src/client/actions/app';
 
@@ -44,6 +45,8 @@ class App extends C {
                    component={FoodsEditor} />
             <Route path="/profile"
                    component={ProfileEditor} />
+            <Route path="/calc"
+                   component={Calculator} />
           </Router>
         </Provider>
       </MuiThemeProvider>

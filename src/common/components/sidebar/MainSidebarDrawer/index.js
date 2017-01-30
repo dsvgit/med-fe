@@ -31,7 +31,7 @@ export default props => {
   });
 
   return (
-    <div>
+    <div className="sidebar-drawer">
       <Drawer open={open}>
         <List>
           {itemsComponent}

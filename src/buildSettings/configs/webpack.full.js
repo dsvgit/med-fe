@@ -13,7 +13,8 @@ module.exports = {
     alias: {
       'src': relPath('', 'home'),
       'appSettings': relPath('/config.js', 'build'),
-      'framework-validator': relPath('/services/validator', 'common')
+      'framework-validator': relPath('/services/validator', 'common'),
+      'framework-moment': relPath('/services/moment', 'common')
     }
   },
   entry: {

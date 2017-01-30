@@ -2,6 +2,7 @@ import React from 'react';
 import ActionHome from 'material-ui/svg-icons/action/home';
 import MapsRestaurant from 'material-ui/svg-icons/maps/restaurant';
 import ActionSettings from 'material-ui/svg-icons/action/settings';
+import DeviceDvr from 'material-ui/svg-icons/device/dvr';
 
 
 export default [
@@ -10,6 +11,12 @@ export default [
     title: 'Главная',
     icon: <ActionHome />,
     url: '/'
+  },
+  {
+    id: 'calc',
+    title: 'Калькулятор',
+    icon: <DeviceDvr />,
+    url: '/calc'
   },
   {
     id: 'food',

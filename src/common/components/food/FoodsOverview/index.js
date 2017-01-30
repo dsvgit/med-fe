@@ -59,12 +59,6 @@ export default props => {
     }
   }
 
-  let styles = {
-    numberColumn: {
-      width: 10
-    }
-  };
-
   return (
     <BaseLayout>
       <div id="foods-overview">
@@ -94,11 +88,26 @@ export default props => {
           >
             <TableRow>
               <TableHeaderColumn>Наименование</TableHeaderColumn>
-              <TableHeaderColumn className="normal-column number-column">Б</TableHeaderColumn>
-              <TableHeaderColumn className="normal-column number-column">Ж</TableHeaderColumn>
-              <TableHeaderColumn className="normal-column number-column">У</TableHeaderColumn>
-              <TableHeaderColumn className="normal-column number-column">К</TableHeaderColumn>
-              <TableHeaderColumn className="tablet-column summary-column">Б/Ж/У/К</TableHeaderColumn>
+              <TableHeaderColumn className="normal-column number-column">
+                Б
+                <span className="hint-text">, г/100г</span>
+              </TableHeaderColumn>
+              <TableHeaderColumn className="normal-column number-column">
+                Ж
+                <span className="hint-text">, г/100г</span>
+              </TableHeaderColumn>
+              <TableHeaderColumn className="normal-column number-column">
+                У
+                <span className="hint-text">, г/100г</span>
+              </TableHeaderColumn>
+              <TableHeaderColumn className="normal-column number-column">
+                К
+                <span className="hint-text">, ккал/100г</span>
+              </TableHeaderColumn>
+              <TableHeaderColumn className="tablet-column summary-column">
+                Б/Ж/У/К
+                <span className="hint-text">, ккал/100г</span>
+              </TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody  displayRowCheckbox={showCheckboxes}

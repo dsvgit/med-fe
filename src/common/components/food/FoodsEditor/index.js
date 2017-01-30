@@ -44,14 +44,14 @@ let FoodsEditor = props => {
         />
         <br />
         <TextField
-          floatingLabelText="Белки"
+          floatingLabelText="Белки, г/100г"
           value={prot}
           onChange={(e, v) => changeField({ name: 'prot', value: v })}
           floatingLabelFixed={true}
           errorText={getError('prot')}
         /><br />
         <TextField
-          floatingLabelText="Жиры"
+          floatingLabelText="Жиры, г/100г"
           value={fats}
           onChange={(e, v) => changeField({ name: 'fats', value: v })}
           floatingLabelFixed={true}
@@ -59,7 +59,7 @@ let FoodsEditor = props => {
         />
         <br />
         <TextField
-          floatingLabelText="Углеводы"
+          floatingLabelText="Углеводы, г/100г"
           value={carb}
           onChange={(e, v) => changeField({ name: 'carb', value: v })}
           floatingLabelFixed={true}
@@ -67,7 +67,7 @@ let FoodsEditor = props => {
         />
         <br />
         <TextField
-          floatingLabelText="Калории"
+          floatingLabelText="Калории, ккал/100г"
           value={calories}
           onChange={(e, v) => changeField({ name: 'calories', value: v })}
           floatingLabelFixed={true}
