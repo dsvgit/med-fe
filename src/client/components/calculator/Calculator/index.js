@@ -58,6 +58,13 @@ export default class extends React.Component {
       removeFood(id);
     }
 
+    let getFill = (current, max) => {
+      let percent = (current*100/max) + '%';
+      return {
+        height: percent
+      };
+    };
+
     const dataSourceConfig = {
       text: 'title',
       value: '_id',
@@ -69,27 +76,43 @@ export default class extends React.Component {
           <div className={styles.planTitle}>Выполенение плана по еде ({moment().format('LL')})</div>
           <div className={styles.cards}>
             <Paper className={styles.mainCard}>
-              <div className={styles.cardTitle}>Белки</div>
-              <div className={styles.cardValue}>{getMainValue('prot')}</div>
-              <div>из {cardProt}</div>
+              <div className={styles.mainCardFill}
+                   style={getFill(getMainValue('prot'), cardProt)}></div>
+              <div className={styles.mainCardContent}>
+                <div className={styles.cardTitle}>Белки</div>
+                <div className={styles.cardValue}>{getMainValue('prot')}</div>
+                <div>из {cardProt}</div>
+              </div>
             </Paper>
 
             <Paper className={styles.mainCard}>
-              <div className={styles.cardTitle}>Жиры</div>
-              <div className={styles.cardValue}>{getMainValue('fats')}</div>
-              <div>из {cardFats}</div>
+              <div className={styles.mainCardFill}
+                   style={getFill(getMainValue('fats'), cardFats)}></div>
+              <div className={styles.mainCardContent}>
+                <div className={styles.cardTitle}>Жиры</div>
+                <div className={styles.cardValue}>{getMainValue('fats')}</div>
+                <div>из {cardFats}</div>
+              </div>
             </Paper>
 
             <Paper className={styles.mainCard}>
-              <div className={styles.cardTitle}>Углеводы</div>
-              <div className={styles.cardValue}>{getMainValue('carb')}</div>
-              <div>из {cardCarb}</div>
+              <div className={styles.mainCardFill}
+                   style={getFill(getMainValue('carb'), cardCarb)}></div>
+              <div className={styles.mainCardContent}>
+                <div className={styles.cardTitle}>Углеводы</div>
+                <div className={styles.cardValue}>{getMainValue('carb')}</div>
+                <div>из {cardCarb}</div>
+              </div>
             </Paper>
 
             <Paper className={styles.mainCard}>
-              <div className={styles.cardTitle}>Каллории</div>
-              <div className={styles.cardValue}>{getMainValue('calories')}</div>
-              <div>из {cardCalories}</div>
+              <div className={styles.mainCardFill}
+                   style={getFill(getMainValue('calories'), cardCalories)}></div>
+              <div className={styles.mainCardContent}>
+                <div className={styles.cardTitle}>Каллории</div>
+                <div className={styles.cardValue}>{getMainValue('calories')}</div>
+                <div>из {cardCalories}</div>
+              </div>
             </Paper>
           </div>
           <List>
