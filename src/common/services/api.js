@@ -22,7 +22,11 @@ const apiV0 = Axios.create({
   baseURL: 'http://localhost:8080/api/v0/',
   headers: {
     'Accept': '*/*',
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Cache-control': 'no-cache',
+    'Cache-control': 'no-store',
+    'Pragma': 'no-cache',
+    'Expires': 0
   }
 });
 
