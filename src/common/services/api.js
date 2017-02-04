@@ -1,3 +1,4 @@
+require('es6-promise').polyfill();
 import Axios from 'axios';
 
 import store from 'src/admin/services/store';

@@ -87,6 +87,7 @@ export function saveUser() {
         history.replace(`/user/${id}`);
       })
       .catch(response => {
+        debugger;
         dispatch(saveUserFailed(response));
       });
     });
@@ -109,6 +110,7 @@ export function saveCard() {
     };
     apiV0.post(`card/${user.id}/`, params)
     .then(response => {
+      debugger;
       dispatch(saveUserSucceed(response));
     })
     .catch(response => {

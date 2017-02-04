@@ -111,16 +111,19 @@ export default function (state, action) {
         savePending: true
       };
     case USERS_EDITOR_SAVE_USER_SUCCEED:
+      let newUser = {};
+      if (action.user) newUser = {
+        password: '',
+        id: action.user._id
+      };
       return {
         ...state,
         user: {
-          ...action.user,
-          password: '',
-          id: action.user._id
+          ...state.user,
+          ...newUser
         },
         savePending: false
       };
-      return state;
     case USERS_EDITOR_SAVE_USER_FAILED:
       return {
         ...state,
