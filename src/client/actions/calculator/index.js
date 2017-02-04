@@ -141,6 +141,7 @@ export function changeField(payload) {
 export function addFood() {
   return dispatch => {
     dispatch({ type: CALCULATOR_ADD_FOOD });
+    dispatch(fetchAvailableFoods());
     dispatch(saveResults());
   };
 }

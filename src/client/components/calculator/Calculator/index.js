@@ -37,6 +37,11 @@ export default class extends React.Component {
       fetchAvailableFoods
       } = this.props;
 
+    let handleAddFood = () => {
+      this.refs.autocomplete.setState({ searchText: ''});
+      addFood();
+    }
+
     let getValue = (source, name) => {
       if (!source) return 0;
       return (parseInt(source[name] * amount)) || 0;
@@ -109,7 +114,7 @@ export default class extends React.Component {
               <div className={styles.mainCardFill}
                    style={getFill(getMainValue('calories'), cardCalories)}></div>
               <div className={styles.mainCardContent}>
-                <div className={styles.cardTitle}>Каллории</div>
+                <div className={styles.cardTitle}>Калории</div>
                 <div className={styles.cardValue}>{getMainValue('calories')}</div>
                 <div>из {cardCalories}</div>
               </div>
@@ -138,6 +143,7 @@ export default class extends React.Component {
             <div className={styles.controls}>
               <div className={styles.control}>
                 <AutoComplete
+                  ref="autocomplete"
                   floatingLabelFixed={true}
                   floatingLabelText="Продукт"
                   filter={AutoComplete.caseInsensitiveFilter}
@@ -180,14 +186,14 @@ export default class extends React.Component {
               </div>
 
               <div className={styles.card}>
-                <div className={styles.cardTitle}>Каллории</div>
+                <div className={styles.cardTitle}>Калории</div>
                 <div className={styles.cardValue}>{getValue(selectedFood, 'calories')}</div>
               </div>
             </div>
             <RaisedButton
               label="Добавить продукт"
               primary
-              onClick={addFood}
+              onClick={handleAddFood}
             />
           </div>
         </div>

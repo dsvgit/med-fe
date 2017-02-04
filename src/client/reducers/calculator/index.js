@@ -129,7 +129,8 @@ export default function (state, action) {
             amount
           }
         ],
-        addedPreviousFoods: addedFoods
+        addedPreviousFoods: addedFoods,
+        form: defaultState.form
       };
     case CALCULATOR_REMOVE_FOOD:
       let { foodId } = action;
