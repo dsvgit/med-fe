@@ -10,6 +10,7 @@ import {
   changeField,
   addFood,
   removeFood,
+  fetchResults,
   reset
 } from 'src/client/actions/calculator';
 import { setTitle } from 'src/client/actions/app';
@@ -22,12 +23,14 @@ class CalculatorContainer extends C {
     let {
       reset,
       fetch,
+      fetchResults,
       fetchAvailableFoods,
       setTitle
       } = this.props;
 
     reset();
     fetch();
+    fetchResults();
     fetchAvailableFoods();
     setTitle('Калькулятор');
   }
@@ -66,9 +69,12 @@ let mapDispatchToProps = dispatch => {
     removeFood(payload) {
       dispatch(removeFood(payload));
     },
+    fetchResults() {
+      dispatch(fetchResults());
+    },
     changeField(payload) {
       dispatch(changeField({ ...payload, context: 'form' }));
-    },
+    }
   };
 }
 

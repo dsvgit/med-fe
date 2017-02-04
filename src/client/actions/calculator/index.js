@@ -9,6 +9,9 @@ import {
   CALCULATOR_FETCH_AVAILABLE_FOODS,
   CALCULATOR_FETCH_AVAILABLE_FOODS_SUCCEED,
   CALCULATOR_FETCH_AVAILABLE_FOODS_FAILED,
+  CALCULATOR_FETCH_RESULTS,
+  CALCULATOR_FETCH_RESULTS_SUCCEED,
+  CALCULATOR_FETCH_RESULTS_FAILED,
   CALCULATOR_SAVE_RESULTS,
   CALCULATOR_SAVE_RESULTS_SUCCEED,
   CALCULATOR_SAVE_RESULTS_FAILED,
@@ -73,21 +76,46 @@ function fetchAvailableFoodsFailed(response) {
   return { type: CALCULATOR_FETCH_AVAILABLE_FOODS_FAILED };
 }
 
+export function fetchResults() {
+  return dispatch => {
+    dispatch({ type: CALCULATOR_FETCH_RESULTS });
+
+    apiV0.get(`user-results/`)
+    .then(response => {
+      dispatch(fetchResultsSucceed(response));
+    })
+    .catch(response => {
+      dispatch(fetchResultsFailed(response));
+    });
+  }
+}
+
+function fetchResultsSucceed(response) {
+  let data = response.data;
+  let { addedFoods } = data;
+  return { type: CALCULATOR_FETCH_RESULTS_SUCCEED, addedFoods };
+}
+
+function fetchResultsFailed(response) {
+  return { type: CALCULATOR_FETCH_RESULTS_FAILED };
+}
+
 export function saveResults() {
   return (dispatch, getState) => {
     let calculator = _.get(getState(), 'calculator');
+    let {
+      addedFoods
+      } = calculator;
 
     dispatch({ type: CALCULATOR_SAVE_RESULTS });
 
     let params = {
+      addedFoods
     };
 
     apiV0.patch(`user-results`, params)
     .then(response => {
-      let { food } = response.data;
-      let { _id: id } = food;
       dispatch(saveResultsSucceed(response));
-      history.replace(`/food/${id}`);
     })
     .catch(response => {
       dispatch(saveResultsFailed(response));
@@ -96,7 +124,8 @@ export function saveResults() {
 }
 
 function saveResultsSucceed(response) {
-  return { type: CALCULATOR_SAVE_RESULTS_SUCCEED };
+  let addedFoods = response.data.addedFoods;
+  return { type: CALCULATOR_SAVE_RESULTS_SUCCEED, addedFoods };
 }
 
 function saveResultsFailed(response) {
@@ -110,11 +139,17 @@ export function changeField(payload) {
 }
 
 export function addFood() {
-  return { type: CALCULATOR_ADD_FOOD };
+  return dispatch => {
+    dispatch({ type: CALCULATOR_ADD_FOOD });
+    dispatch(saveResults());
+  };
 }
 
 export function removeFood(foodId) {
-  return { type: CALCULATOR_REMOVE_FOOD, foodId };
+  return dispatch => {
+    dispatch({ type: CALCULATOR_REMOVE_FOOD, foodId });
+    dispatch(saveResults());
+  };
 }
 
 export function reset() {

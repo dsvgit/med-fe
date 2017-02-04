@@ -7,6 +7,12 @@ import {
   CALCULATOR_FETCH_AVAILABLE_FOODS,
   CALCULATOR_FETCH_AVAILABLE_FOODS_SUCCEED,
   CALCULATOR_FETCH_AVAILABLE_FOODS_FAILED,
+  CALCULATOR_FETCH_RESULTS,
+  CALCULATOR_FETCH_RESULTS_SUCCEED,
+  CALCULATOR_FETCH_RESULTS_FAILED,
+  CALCULATOR_SAVE_RESULTS,
+  CALCULATOR_SAVE_RESULTS_SUCCEED,
+  CALCULATOR_SAVE_RESULTS_FAILED,
   CALCULATOR_CHANGE_FIELD,
   CALCULATOR_ADD_FOOD,
   CALCULATOR_REMOVE_FOOD,
@@ -33,6 +39,7 @@ export default function (state, action) {
     },
     search: '',
     addedFoods: [],
+    addedPreviousFoods: [],
     fetchError: false,
     fetchPending: false
   };
@@ -114,22 +121,44 @@ export default function (state, action) {
         addedFoods: [
           ...state.addedFoods,
           {
-            ...selectedFood,
+            title: selectedFood.title,
             calories: getValue(selectedFood, 'calories', amount),
             prot: getValue(selectedFood, 'prot', amount),
             fats: getValue(selectedFood, 'fats', amount),
-            carb: getValue(selectedFood, 'carb', amount)
+            carb: getValue(selectedFood, 'carb', amount),
+            amount
           }
-        ]
+        ],
+        addedPreviousFoods: addedFoods
       };
     case CALCULATOR_REMOVE_FOOD:
       let { foodId } = action;
+      if (!foodId) return state;
       let addedFoods = state.addedFoods.slice();
       _.remove(addedFoods, food => food._id == foodId);
       return {
         ...state,
         addedFoods
       };
+    case CALCULATOR_SAVE_RESULTS_SUCCEED:
+      return {
+        ...state,
+        addedFoods: action.addedFoods
+      };
+    case CALCULATOR_SAVE_RESULTS_FAILED:
+      return {
+        ...state,
+        addedFoods: action.addedPreviousFoods
+      };
+    case CALCULATOR_FETCH_RESULTS:
+      return state;
+    case CALCULATOR_FETCH_RESULTS_SUCCEED:
+      return {
+        ...state,
+        addedFoods: action.addedFoods
+      };
+    case CALCULATOR_FETCH_RESULTS_FAILED:
+      return state;
     case CALCULATOR_RESET:
       return defaultState;
     default:
