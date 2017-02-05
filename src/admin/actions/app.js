@@ -1,11 +1,22 @@
 import { apiV0, oauth } from 'src/common/services/api';
 import go from 'src/admin/services/redirects';
+import store from 'src/admin/services/store';
 import {
   APP_SET_TITLE,
   APP_SET_CURRENT_USER,
   APP_OPEN_SIDEBAR,
   APP_CLOSE_SIDEBAR
 } from 'src/admin/actionTypes/app';
+
+apiV0.interceptors.response.use(null, error => {
+  if (!error.response) return;
+
+  if (error.response.status === 401 || error.response.status === 403) {
+    store.dispatch(logout());
+    return Promise.reject(error);
+  }
+  return Promise.reject(error);
+});
 
 export function setTitle(title) {
   return { type: APP_SET_TITLE, title }

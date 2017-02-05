@@ -1,6 +1,7 @@
 var webpack = require('webpack');
 var path = require('path');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var CircularDependencyPlugin = require('circular-dependency-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var autoprefixer = require('autoprefixer');
 var autoreset = require('postcss-autoreset');
@@ -53,6 +54,12 @@ module.exports = {
       chunks: ['client'],
       template: './src/client/app/index.ejs',
       inject: true
+    }),
+    new CircularDependencyPlugin({
+      // exclude detection of files based on a RegExp
+      //exclude: /a\.js/,
+      // add errors to webpack instead of warnings
+      failOnError: true
     }),
     new webpack.NoErrorsPlugin()
   ],

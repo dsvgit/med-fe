@@ -5,6 +5,7 @@ import foodsList from 'src/client/reducers/foods/list';
 import foodsEditor from 'src/client/reducers/foods/editor';
 import profile from 'src/client/reducers/profile';
 import calculator from 'src/client/reducers/calculator';
+import statistics from 'src/client/reducers/statistics';
 
 
 export default (state = {}, action) => {
@@ -15,6 +16,7 @@ export default (state = {}, action) => {
       list: foodsList(_.get(state, 'foods.list'), action)
     },
     profile: profile(_.get(state, 'profile'), action),
-    calculator: calculator(_.get(state, 'calculator'), action)
+    calculator: calculator(_.get(state, 'calculator'), action),
+    statistics: statistics(_.get(state, 'statistics'), action)
   };
 }

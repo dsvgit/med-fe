@@ -13,6 +13,10 @@ import {
   goToOverview,
   reset
 } from 'src/admin/actions/users/editor';
+import {
+  fetchStatistics,
+  reset as resetStatistics
+} from 'src/admin/actions/statistics';
 import { setTitle } from 'src/admin/actions/app';
 import UsersEditor from 'src/admin/components/users/editor/UsersEditor';
 
@@ -24,14 +28,18 @@ class UsersEditorContainer extends C {
       reset,
       fetch,
       setTitle,
+      resetStatistics,
+      fetchStatistics,
       params: {
         userId
         }
       } = this.props;
 
     reset();
+    resetStatistics();
     if (userId) {
-      fetch(userId)
+      fetch(userId);
+      fetchStatistics(userId);
       setTitle('Редактирование пользователя');
     } else {
       setTitle('Добавление пользователя');
@@ -39,8 +47,14 @@ class UsersEditorContainer extends C {
   }
 
   componentWillUnmount() {
-    let { setTitle } = this.props;
+    let {
+      setTitle,
+      reset,
+      resetStatistics
+      } = this.props;
     setTitle();
+    reset();
+    resetStatistics();
   }
 
   render() {
@@ -71,6 +85,12 @@ let mapDispatchToProps = dispatch => {
     },
     setTitle(title) {
       dispatch(setTitle(title));
+    },
+    fetchStatistics(id) {
+      dispatch(fetchStatistics(id));
+    },
+    resetStatistics() {
+      dispatch(resetStatistics());
     },
     goToOverview() {
       goToOverview();

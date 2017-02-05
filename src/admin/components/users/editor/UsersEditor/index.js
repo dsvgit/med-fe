@@ -9,6 +9,7 @@ import { withRouter } from 'react-router';
 import BaseLayout from 'src/admin/containers/layouts/BaseLayout';
 import ProfileEditor from 'src/admin/containers/users/editor/ProfileEditor';
 import CardEditor from 'src/admin/containers/users/editor/CardEditor';
+import ResultsLinearStatistics from 'src/admin/containers/users/editor/ResultsLinearStatistics';
 
 
 let UsersEditor = props => {
@@ -55,6 +56,7 @@ let UsersEditor = props => {
             label="Карточка"
             value="card">
             <CardEditor />
+            <ResultsLinearStatistics />
           </Tab>
           : null
         }
