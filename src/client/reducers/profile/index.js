@@ -19,7 +19,8 @@ export default function (state, action) {
       firstname: '',
       lastname: '',
       email: '',
-      password: ''
+      password: '',
+      timezone: 0
     },
     errors: {},
     fetchError: false,
@@ -46,7 +47,8 @@ export default function (state, action) {
           firstname,
           lastname,
           email,
-          password
+          password,
+          timezone
           }
         } = action;
       return {
@@ -57,7 +59,8 @@ export default function (state, action) {
           firstname,
           lastname,
           email,
-          password
+          password,
+          timezone
         },
         fetchError: false,
         fetchPending: false

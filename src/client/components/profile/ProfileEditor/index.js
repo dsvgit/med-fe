@@ -2,9 +2,11 @@ import React from 'react';
 import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
 import RaisedButton from 'material-ui/RaisedButton';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 
 import BaseLayout from 'src/client/containers/layouts/BaseLayout';
-
+import timezones from './timezones';
 
 export default props => {
   let {
@@ -13,7 +15,8 @@ export default props => {
       firstname,
       lastname,
       email,
-      password
+      password,
+      timezone
       },
     errors,
     changeField,
@@ -62,6 +65,15 @@ export default props => {
           floatingLabelFixed={true}
           errorText={getError('password')}
         />
+        <br />
+        <SelectField
+          floatingLabelText="Timezone"
+          value={timezone}
+          onChange={(e, i, v) => changeField({ name: 'timezone', value: v })} >
+          {timezones.map((zone, i) => {
+            return <MenuItem key={i} value={zone.value} primaryText={zone.title} />
+          })}
+        </SelectField>
       </div>
       <br />
       <RaisedButton

@@ -58,24 +58,24 @@ export function saveProfile() {
 
     let user = _.get(getState(), 'profile.user');
 
-    if (!validate(dispatch, getState)) return;
+    validate(dispatch, getState, () => {
+      let _user = _.pick(user, ['login', 'firstname', 'lastname', 'email', 'timezone']);
+      let { id, password } = user;
+      if (id) _user.id = id;
+      if (password) _user.password = password;
 
-    let _user = _.pick(user, ['login', 'firstname', 'lastname', 'email']);
-    let { id, password } = user;
-    if (id) _user.id = id;
-    if (password) _user.password = password;
+      let params = {
+        user: _user
+      };
 
-    let params = {
-      user: _user
-    };
-
-    apiV0.post(`profile/`, params)
-    .then(response => {
-      dispatch(saveProfileSucceed(response));
-      dispatch(fetchCurrentUser());
-    })
-    .catch(response => {
-      dispatch(saveProfileFailed(response));
+      apiV0.post(`profile/`, params)
+      .then(response => {
+        dispatch(saveProfileSucceed(response));
+        dispatch(fetchCurrentUser());
+      })
+      .catch(response => {
+        dispatch(saveProfileFailed(response));
+      });
     });
   }
 }
@@ -95,16 +95,21 @@ export function changeField(payload) {
   }
 }
 
-function validate(dispatch, getState) {
+function validate(dispatch, getState, cb) {
   let user = _.get(getState(), 'profile.user');
   let _schema = Object.assign({}, schema);
   if (!user.id) {
     _schema.password = 'required';
   }
   let validation = new Validator(user, _schema);
-  let passes = validation.passes();
-  dispatch({ type: PROFILE_EDITOR_VALIDATE, errors: validation.errors });
-  return passes;
+  validation.passes(function() {
+    cb && cb();
+    dispatch({ type: PROFILE_EDITOR_VALIDATE, errors: validation.errors });
+  });
+
+  validation.fails(function() {
+    dispatch({ type: PROFILE_EDITOR_VALIDATE, errors: validation.errors });
+  });
 }
 
 export function reset() {

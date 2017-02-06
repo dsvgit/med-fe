@@ -23,10 +23,17 @@ export default props => {
     return value;
   });
 
-  let norm = statistics.map(chunk => {
+  var norm = [];
+  statistics.forEach((chunk, i) => {
     let value = _.get(chunk, 'card.calories') || 0;
-    return value;
+    let index = i == 0 ? 0 : i - 1;
+    if (value) {
+      norm.push(value);
+    } else {
+      norm.push(norm[index] || 0);
+    }
   });
+  console.log('norm', norm);
 
   console.log(categories);
   console.log(results);
