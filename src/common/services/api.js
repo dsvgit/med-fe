@@ -2,8 +2,9 @@ require('es6-promise').polyfill();
 import Axios from 'axios';
 
 import appSettings from 'appSettings';
+import { subApplication, ApiHost } from 'src/common/services/config';
 
-let isAdmin = window.subApplication == 'admin';
+let isAdmin = subApplication == 'admin';
 
 // const
 
@@ -14,7 +15,7 @@ const clientSecret = appSettings.ClientSecret;
 // instances
 
 const apiV0 = Axios.create({
-  baseURL: 'http://localhost:8080/api/v0/',
+  baseURL: `${ApiHost}/api/v0/`,
   headers: {
     'Accept': '*/*',
     'Content-Type': 'application/json',
@@ -40,7 +41,7 @@ if (isAdmin) {
 }
 
 const oauth = Axios.create({
-  baseURL: `http://localhost:8080/api/v0/authenticate`,
+  baseURL: `${ApiHost}/api/v0/authenticate`,
   params: authParams,
   headers: {
     'Accept': 'application/json',

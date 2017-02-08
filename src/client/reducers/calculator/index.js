@@ -21,7 +21,7 @@ import {
 
 let getValue = (source, name, amount) => {
   if (!source) return 0;
-  return (parseInt(source[name] * amount)) || 0;
+  return (parseInt(source[name] * amount / 100)) || 0;
 }
 
 export default function (state, action) {

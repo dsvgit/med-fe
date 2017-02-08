@@ -12,7 +12,7 @@ import {
   reset
 } from 'src/client/actions/foods/editor';
 import { setTitle } from 'src/client/actions/app';
-import FoodsEditor from 'src/common/components/food/FoodsEditor';
+import FoodsEditor from 'src/client/components/food/FoodsEditor';
 
 
 @withRouter

@@ -2,7 +2,7 @@ import adminConfig from 'src/admin/services/config';
 import clientConfig from 'src/client/services/config';
 
 
-function getConfig() {
+function getSubConfig() {
   switch(window.subApplication){
     case 'admin':
       return adminConfig
@@ -11,6 +11,22 @@ function getConfig() {
     default:
       return {};
   }
+}
+
+function getConfig() {
+  let GlobalConfig = window.GlobalConfig || {};
+  let subConfig = getSubConfig();
+  let {
+    subApplication
+    } = window;
+
+  let config = {
+    ...GlobalConfig,
+    ...subConfig,
+    subApplication
+  };
+
+  return config;
 }
 
 export default getConfig();

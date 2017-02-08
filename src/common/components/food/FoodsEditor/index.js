@@ -6,8 +6,6 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
 import { withRouter } from 'react-router';
 
-import { BaseLayout } from 'src/common/services/config';
-
 
 let FoodsEditor = props => {
   let {
@@ -33,7 +31,7 @@ let FoodsEditor = props => {
   let getError = field => errors.first && errors.first(field);
 
   return (
-    <BaseLayout>
+    <div>
       <div style={styles.block}>
         <TextField
           floatingLabelText="Наименование"
@@ -87,7 +85,7 @@ let FoodsEditor = props => {
         onClick={goToOverview}
         className="action-button"
       />
-    </BaseLayout>
+    </div>
   );
 };
 

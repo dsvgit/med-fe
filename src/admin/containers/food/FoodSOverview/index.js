@@ -16,8 +16,7 @@ import {
   changeField
 } from 'src/admin/actions/foods/list';
 import { setTitle } from 'src/admin/actions/app';
-import FoodsOverview from 'src/common/components/food/FoodsOverview';
-
+import FoodsOverview from 'src/admin/components/food/FoodsOverview';
 
 class FoodsOverviewContainer extends C {
   componentDidMount() {

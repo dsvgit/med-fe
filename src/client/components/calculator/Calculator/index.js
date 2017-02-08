@@ -44,7 +44,7 @@ export default class extends React.Component {
 
     let getValue = (source, name) => {
       if (!source) return 0;
-      return (parseInt(source[name] * amount)) || 0;
+      return (parseInt(source[name] * amount / 100)) || 0;
     }
 
     let changeAmount = (e, _value) => {
